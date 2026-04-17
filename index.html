@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AITF 진행현황 — YKO PDD</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --yoko-navy:   #003087;
+  --yoko-blue:   #0057B8;
+  --yoko-blue2:  #1976D2;
+  --yoko-green:  #00A651;
+  --yoko-green2: #007A3D;
+  --yoko-teal:   #00838F;
+
+  --bg:          #F4F6FA;
+  --bg2:         #EAECF2;
+  --surface:     #FFFFFF;
+  --surface2:    #F0F4FF;
+
+  --border:      #D0D8E8;
+  --border2:     #B0BEDA;
+
+  --text:        #1A2340;
+  --text-mid:    #4A5878;
+  --text-dim:    #8A96B0;
+
+  --status-done: #00A651;
+  --status-prog: #0057B8;
+  --status-part: #E67C00;
+  --status-none: #9EAABF;
+
+  --shadow-sm:   0 1px 4px rgba(0,48,135,0.08);
+  --shadow-md:   0 4px 16px rgba(0,48,135,0.12);
+  --shadow-lg:   0 8px 32px rgba(0,48,135,0.16);
+
+  --cat-eng:     #1565C0;
+  --cat-analysis:#00838F;
+  --cat-media:   #6A1B9A;
+  --cat-agent:   #00A651;
+  --cat-it:      #0277BD;
+  --cat-culture: #558B2F;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; }
+
+/* ── TOP BAR ── */
+.topbar {
+  background: linear-gradient(90deg, var(--yoko-navy) 0%, #00308F 55%, #004DB3 100%);
+  border-bottom: 3px solid var(--yoko-green);
+  padding: 0 24px; height: 58px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100;
+  box-shadow: 0 2px 12px rgba(0,48,135,0.35);
+}
+.topbar-left { display:flex; align-items:center; gap:18px; }
+.yoko-brand { display:flex; align-items:center; gap:12px; border-right:1px solid rgba(255,255,255,0.25); padding-right:18px; }
+.yoko-logo-box {
+  width:38px; height:38px; border-radius:6px;
+  background:linear-gradient(135deg, #fff 0%, #D0E8FF 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Rajdhani',sans-serif; font-weight:700; font-size:15px; color:var(--yoko-navy);
+  box-shadow:0 0 10px rgba(255,255,255,0.3);
+}
+.yoko-name { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:19px; color:#fff; letter-spacing:2px; }
+.yoko-sub  { font-size:10px; color:rgba(255,255,255,0.65); letter-spacing:0.8px; margin-top:1px; }
+.sys-title { font-family:'Rajdhani',sans-serif; font-weight:600; font-size:15px; color:#A8CFFF; letter-spacing:1.5px; }
+.topbar-right { display:flex; align-items:center; gap:16px; }
+.clock { font-family:'Share Tech Mono',monospace; font-size:13px; color:#C8E0FF; background:rgba(0,0,0,0.2); padding:5px 12px; border:1px solid rgba(255,255,255,0.15); border-radius:3px; }
+.user-badge { font-size:12px; color:rgba(255,255,255,0.75); display:flex; align-items:center; gap:6px; }
+
+/* ── STATUS BAR ── */
+.statusbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 24px;
+  display:flex; align-items:center; gap:24px; flex-wrap:wrap;
+  box-shadow: var(--shadow-sm);
+}
+.status-item { display:flex; align-items:center; gap:7px; }
+.s-led { width:8px; height:8px; border-radius:50%; }
+.s-led.green { background:var(--yoko-green); box-shadow:0 0 5px var(--yoko-green); animation:pulse 2s infinite; }
+.s-led.blue  { background:var(--yoko-blue);  box-shadow:0 0 5px var(--yoko-blue);  animation:pulse 2s infinite 0.4s; }
+.s-led.warn  { background:#E67C00; box-shadow:0 0 5px #E67C00; animation:pulse 2s infinite 0.8s; }
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.45}}
+.s-text { font-size:12px; color:var(--text-mid); font-weight:500; }
+.s-sep  { width:1px; height:16px; background:var(--border); }
+.s-right { margin-left:auto; font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--text-dim); }
+.s-right span { color:var(--yoko-blue); font-weight:700; }
+
+/* ── LAYOUT ── */
+.main-wrap { display:flex; height:calc(100vh - 92px); }
+
+/* ── LEFT NAV ── */
+.leftnav {
+  width:210px; flex-shrink:0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+  box-shadow:2px 0 8px rgba(0,48,135,0.06);
+}
+.nav-logo-area {
+  padding:16px 16px 12px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(160deg, var(--surface2) 0%, #fff 100%);
+}
+.nav-logo-title { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:14px; color:var(--yoko-navy); letter-spacing:1px; }
+.nav-logo-sub   { font-size:11px; color:var(--text-dim); margin-top:2px; }
+
+.nav-section { padding:6px 0; border-bottom:1px solid var(--border); }
+.nav-sec-title { font-size:10px; color:var(--text-dim); padding:6px 16px 4px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; }
+.nav-item {
+  padding:9px 16px; font-size:13px; color:var(--text-mid);
+  cursor:pointer; display:flex; align-items:center; gap:10px;
+  transition:all 0.15s; border-left:3px solid transparent;
+}
+.nav-item:hover { background:var(--surface2); color:var(--text); }
+.nav-item.active { background:#EEF4FF; color:var(--yoko-blue); border-left-color:var(--yoko-blue); font-weight:600; }
+.nav-item i { font-size:12px; width:14px; text-align:center; }
+.nav-add { color:var(--yoko-green) !important; font-weight:600; }
+
+/* ── CONTENT ── */
+.content { flex:1; overflow-y:auto; padding:16px 20px; background:var(--bg); }
+
+/* ── HEADER PANEL ── */
+.header-panel {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:5px solid var(--yoko-green);
+  padding:16px 20px; margin-bottom:14px;
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  box-shadow:var(--shadow-sm); border-radius:4px;
+}
+.header-panel h1 { font-family:'Rajdhani',sans-serif; font-size:24px; font-weight:700; color:var(--yoko-navy); letter-spacing:1.5px; }
+.header-panel h1 span { color:var(--yoko-green); }
+.header-panel p  { font-size:12px; color:var(--text-dim); margin-top:3px; letter-spacing:0.3px; }
+.hmi-btn {
+  font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:600;
+  padding:9px 20px; border:none; cursor:pointer; border-radius:4px; transition:all 0.18s;
+}
+.hmi-btn.primary {
+  background:linear-gradient(135deg, var(--yoko-blue), var(--yoko-navy));
+  color:#fff; box-shadow:0 3px 10px rgba(0,87,184,0.3);
+}
+.hmi-btn.primary:hover { background:linear-gradient(135deg, var(--yoko-blue2), var(--yoko-blue)); box-shadow:0 4px 14px rgba(0,87,184,0.4); }
+
+/* ── PLC TABS ── */
+.plc-tabs { display:flex; gap:5px; margin-bottom:14px; flex-wrap:wrap; }
+.plc-tab {
+  font-family:'Rajdhani',sans-serif; font-weight:600; font-size:13px;
+  padding:9px 18px; border:1px solid var(--border);
+  background:var(--surface); color:var(--text-mid); cursor:pointer;
+  transition:all 0.15s; letter-spacing:0.8px; min-width:95px; text-align:center;
+  border-radius:4px; box-shadow:var(--shadow-sm);
+}
+.plc-tab:hover { border-color:var(--border2); color:var(--text); background:var(--surface2); }
+.plc-tab .tab-count { font-family:'Share Tech Mono',monospace; font-size:20px; display:block; margin-top:2px; }
+.plc-tab.active { font-weight:700; border-bottom-width:3px; }
+.tab-all.active  { background:#EEF4FF; border-color:var(--yoko-blue); color:var(--yoko-blue); border-bottom-color:var(--yoko-blue); }
+.tab-p0.active   { background:#E0F7FA; border-color:var(--yoko-teal); color:var(--yoko-teal); border-bottom-color:var(--yoko-teal); }
+.tab-p1.active   { background:#E3F0FF; border-color:var(--yoko-blue); color:var(--yoko-blue); border-bottom-color:var(--yoko-blue); }
+.tab-p2.active   { background:#E8F5E9; border-color:var(--yoko-green); color:var(--yoko-green2); border-bottom-color:var(--yoko-green); }
+.tab-p3.active   { background:#FFF3E0; border-color:#E67C00; color:#C85A00; border-bottom-color:#E67C00; }
+
+/* ── KPI ROW ── */
+.kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:14px; }
+.kpi-box {
+  background:var(--surface); border:1px solid var(--border);
+  border-top:4px solid; border-radius:4px;
+  padding:14px 16px; box-shadow:var(--shadow-sm);
+  transition:box-shadow 0.2s;
+}
+.kpi-box:hover { box-shadow:var(--shadow-md); }
+.k-total { border-top-color:var(--yoko-blue); }
+.k-done  { border-top-color:var(--yoko-green); }
+.k-prog  { border-top-color:#1565C0; }
+.k-part  { border-top-color:#E67C00; }
+.k-avg   { border-top-color:var(--yoko-teal); }
+.kpi-lbl { font-size:11px; color:var(--text-dim); letter-spacing:0.5px; font-weight:600; text-transform:uppercase; }
+.kpi-val { font-family:'Share Tech Mono',monospace; font-size:34px; font-weight:700; line-height:1.1; margin-top:5px; }
+.k-total .kpi-val { color:var(--yoko-blue); }
+.k-done  .kpi-val { color:var(--yoko-green); }
+.k-prog  .kpi-val { color:#1565C0; }
+.k-part  .kpi-val { color:#E67C00; }
+.k-avg   .kpi-val { color:var(--yoko-teal); }
+.kpi-sub { font-size:11px; color:var(--text-dim); margin-top:4px; }
+
+/* ── FILTER ── */
+.filter-row { display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; align-items:center; }
+.filter-label { font-size:12px; color:var(--text-dim); font-weight:600; margin-right:2px; }
+.chip-btn {
+  font-size:12px; font-weight:500;
+  padding:5px 14px; border:1px solid var(--border);
+  background:var(--surface); color:var(--text-mid); cursor:pointer;
+  transition:all 0.15s; border-radius:20px;
+}
+.chip-btn:hover { border-color:var(--border2); color:var(--text); background:var(--surface2); }
+.chip-btn.active { color:#fff; font-weight:700; border-color:transparent; }
+.chip-btn[data-cat="all"].active        { background:var(--yoko-blue); }
+.chip-btn[data-cat="Engineering"].active { background:#1565C0; }
+.chip-btn[data-cat="Analysis"].active   { background:var(--yoko-teal); }
+.chip-btn[data-cat="Media"].active      { background:#6A1B9A; }
+.chip-btn[data-cat="Agent"].active      { background:var(--yoko-green); }
+.chip-btn[data-cat="IT"].active         { background:#0277BD; }
+.chip-btn[data-cat="Culture"].active    { background:#558B2F; }
+
+/* ── GRID ── */
+.grid-area { display:grid; grid-template-columns:1fr 275px; gap:14px; }
+@media(max-width:1100px){ .grid-area{ grid-template-columns:1fr; } }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:12px; }
+
+/* ── ITEM CARD ── */
+.item-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:6px; box-shadow:var(--shadow-sm);
+  transition:all 0.2s; position:relative; overflow:hidden;
+}
+.item-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg, var(--yoko-blue), var(--yoko-green));
+  opacity:0; transition:opacity 0.2s;
+}
+.item-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-3px); border-color:var(--border2); }
+.item-card:hover::before { opacity:1; }
+.item-card.hidden { display:none; }
+
+.card-titlebar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:11px 14px; border-bottom:1px solid var(--border);
+  background:var(--surface2);
+}
+.card-titlebar-left { display:flex; align-items:center; gap:9px; }
+.card-num {
+  font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--text-dim);
+  background:#fff; padding:2px 7px; border:1px solid var(--border); border-radius:3px;
+}
+.card-name { font-weight:700; font-size:15px; color:var(--text); }
+.card-edit-btn {
+  font-size:11px; color:var(--text-dim); cursor:pointer; padding:4px 10px;
+  border:1px solid var(--border); background:#fff; border-radius:3px;
+  transition:all 0.15s; opacity:0; font-weight:500;
+}
+.item-card:hover .card-edit-btn { opacity:1; }
+.card-edit-btn:hover { color:var(--yoko-blue); border-color:var(--yoko-blue); background:#EEF4FF; }
+
+.card-body { padding:12px 14px; }
+.card-badges { display:flex; gap:5px; margin-bottom:10px; flex-wrap:wrap; }
+.hmi-badge {
+  font-size:11px; font-weight:600;
+  padding:3px 9px; border-radius:3px;
+  border:1px solid currentColor; letter-spacing:0.3px;
+}
+.card-desc { font-size:13px; color:var(--text-mid); line-height:1.75; margin-bottom:11px; }
+
+.status-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.s-indicator { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.si-done  { background:var(--status-done); box-shadow:0 0 5px rgba(0,166,81,0.5); }
+.si-prog  { background:var(--status-prog); box-shadow:0 0 5px rgba(0,87,184,0.5); animation:pulse 2.5s infinite; }
+.si-part  { background:var(--status-part); box-shadow:0 0 5px rgba(230,124,0,0.5); }
+.si-none  { background:var(--status-none); }
+.s-label  { font-size:12px; font-weight:600; }
+
+.prog-wrap { margin-bottom:8px; }
+.prog-header { display:flex; justify-content:space-between; margin-bottom:6px; }
+.prog-header span  { font-size:11px; color:var(--text-dim); font-weight:600; letter-spacing:0.5px; }
+.prog-header strong { font-size:14px; font-weight:700; }
+.prog-track { height:8px; background:var(--bg2); border-radius:99px; overflow:hidden; }
+.prog-fill  { height:100%; border-radius:99px; transition:width 0.8s cubic-bezier(.4,0,.2,1); }
+
+.tool-row { display:flex; gap:5px; flex-wrap:wrap; margin-top:10px; }
+.tool-chip {
+  font-size:11px; color:var(--text-mid);
+  background:var(--bg); padding:3px 9px; border:1px solid var(--border);
+  border-radius:3px; font-weight:500;
+}
+
+.toggle-row {
+  padding:8px 14px; border-top:1px solid var(--border);
+  font-size:12px; color:var(--yoko-blue); font-weight:600;
+  cursor:pointer; display:flex; align-items:center; gap:6px;
+  transition:background 0.15s;
+}
+.toggle-row:hover { background:var(--surface2); }
+
+.detail-body { display:none; padding:12px 14px; border-top:1px solid var(--border); background:var(--bg); }
+.detail-body.open { display:block; }
+.detail-task-title { font-size:11px; color:var(--text-dim); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; }
+.detail-task-item { font-size:12px; color:var(--text-mid); padding:3px 0; display:flex; gap:8px; }
+.detail-task-item::before { content:'▸'; color:var(--yoko-green); flex-shrink:0; font-size:11px; }
+.result-box {
+  font-size:12px; color:var(--text-mid); line-height:1.8;
+  border-left:3px solid var(--yoko-blue); padding:9px 12px;
+  background:var(--surface); margin-top:10px; border-radius:0 4px 4px 0;
+}
+
+/* ── ADD BTN ── */
+.add-row { margin-top:12px; }
+.add-card-btn {
+  width:100%; padding:13px; background:var(--surface);
+  border:2px dashed var(--border2); color:var(--text-dim);
+  font-size:13px; font-weight:600;
+  cursor:pointer; transition:all 0.18s; display:flex; align-items:center; justify-content:center; gap:8px;
+  border-radius:6px;
+}
+.add-card-btn:hover { border-color:var(--yoko-green); color:var(--yoko-green); background:#F0FAF4; }
+
+/* ── SIDEBAR ── */
+.sidebar { display:flex; flex-direction:column; gap:12px; }
+.side-panel { background:var(--surface); border:1px solid var(--border); border-radius:6px; box-shadow:var(--shadow-sm); }
+.side-panel-title {
+  font-size:13px; font-weight:700; color:var(--text);
+  padding:11px 14px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:8px;
+  background:var(--surface2); border-radius:6px 6px 0 0;
+}
+.side-panel-title i { color:var(--yoko-blue); font-size:12px; }
+.side-panel-body { padding:14px; }
+
+.donut-wrap { display:flex; flex-direction:column; align-items:center; gap:14px; }
+.donut-svg  { width:130px; height:130px; }
+.donut-legend { width:100%; display:flex; flex-direction:column; gap:8px; }
+.leg-row  { display:flex; align-items:center; justify-content:space-between; }
+.leg-dot  { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+.leg-lbl  { font-size:12px; color:var(--text-mid); margin:0 8px; flex:1; }
+.leg-val  { font-family:'Share Tech Mono',monospace; font-size:14px; font-weight:700; }
+
+.cat-list { display:flex; flex-direction:column; gap:10px; }
+.cat-row-lbl { display:flex; justify-content:space-between; font-size:12px; color:var(--text-mid); margin-bottom:4px; font-weight:500; }
+.cat-track   { height:8px; background:var(--bg2); border-radius:99px; overflow:hidden; }
+.cat-fill    { height:100%; border-radius:99px; }
+
+.plc-list { display:flex; flex-direction:column; gap:8px; }
+.plc-row  { display:flex; align-items:center; gap:8px; }
+.plc-lbl  { font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--text-mid); width:46px; font-weight:600; }
+.plc-track { flex:1; height:10px; background:var(--bg2); border-radius:99px; overflow:hidden; }
+.plc-fill  { height:100%; border-radius:99px; }
+.plc-cnt  { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--text-dim); width:18px; text-align:right; }
+
+.legend-list { display:flex; flex-direction:column; gap:10px; }
+.legend-row  { display:flex; align-items:center; gap:9px; }
+.legend-dot  { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
+.legend-text { font-size:13px; color:var(--text-mid); }
+
+/* ── MODAL ── */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,30,90,0.5); z-index:1000; align-items:center; justify-content:center; backdrop-filter:blur(3px); }
+.modal-overlay.open { display:flex; }
+.modal {
+  background:#fff; border:1px solid var(--border);
+  width:90%; max-width:580px; max-height:90vh; overflow-y:auto;
+  border-radius:8px; box-shadow:0 20px 60px rgba(0,48,135,0.25);
+}
+.modal-titlebar {
+  background:linear-gradient(90deg, var(--yoko-navy), #0050A0);
+  padding:14px 18px; border-radius:8px 8px 0 0;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.modal-titlebar h3 { font-family:'Rajdhani',sans-serif; font-size:19px; font-weight:700; color:#fff; letter-spacing:1px; }
+.modal-close { color:rgba(255,255,255,0.7); cursor:pointer; font-size:16px; }
+.modal-close:hover { color:#fff; }
+.modal-body { padding:20px; }
+.form-row { margin-bottom:16px; }
+.form-row label { display:block; font-size:11px; color:var(--text-dim); font-weight:700; letter-spacing:0.8px; text-transform:uppercase; margin-bottom:6px; }
+.form-row input, .form-row select, .form-row textarea {
+  width:100%; background:#fff; border:1px solid var(--border2);
+  color:var(--text); padding:10px 13px; font-size:14px;
+  font-family:'Noto Sans KR',sans-serif; border-radius:4px; transition:all 0.15s;
+}
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+  outline:none; border-color:var(--yoko-blue); box-shadow:0 0 0 3px rgba(0,87,184,0.12);
+}
+.form-row textarea { resize:vertical; min-height:80px; }
+.range-wrap { display:flex; align-items:center; gap:12px; }
+.range-wrap input[type=range] { flex:1; accent-color:var(--yoko-blue); }
+.range-val { font-family:'Share Tech Mono',monospace; font-size:15px; color:var(--yoko-blue); font-weight:700; width:46px; text-align:right; }
+.modal-footer { padding:14px 20px; border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:8px; background:var(--bg); border-radius:0 0 8px 8px; }
+.modal-btn { font-size:13px; font-weight:600; padding:9px 20px; border-radius:4px; cursor:pointer; transition:all 0.15s; border:1px solid var(--border2); background:#fff; color:var(--text); }
+.modal-btn:hover { background:var(--surface2); }
+.modal-btn.save { background:linear-gradient(135deg, var(--yoko-blue), var(--yoko-navy)); color:#fff; border:none; box-shadow:0 3px 10px rgba(0,87,184,0.3); }
+.modal-btn.save:hover { box-shadow:0 4px 14px rgba(0,87,184,0.45); }
+.modal-btn.del { color:#C62828; border-color:#FFCDD2; }
+.modal-btn.del:hover { background:#FFEBEE; }
+
+/* toast */
+.toast {
+  position:fixed; bottom:24px; right:24px; z-index:9998;
+  background:var(--yoko-green); color:#fff;
+  font-size:13px; font-weight:700;
+  padding:11px 22px; border-radius:4px;
+  box-shadow:0 4px 16px rgba(0,166,81,0.35);
+  opacity:0; transform:translateY(10px); transition:all 0.3s; pointer-events:none;
+}
+.toast.show { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="yoko-brand">
+      <div class="yoko-logo-box">YK</div>
+      <div>
+        <div class="yoko-name">YOKOGAWA</div>
+        <div class="yoko-sub">Korea · Project Delivery Division</div>
+      </div>
+    </div>
+    <span class="sys-title">AITF 진행현황 DASHBOARD</span>
+  </div>
+  <div class="topbar-right">
+    <div class="clock" id="clock">--:--:--</div>
+    <div class="user-badge"><i class="fa-solid fa-circle-user"></i> PD-DIVISION</div>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <div class="status-item"><div class="s-led green"></div><span class="s-text">PD-BOT ONLINE</span></div>
+  <div class="s-sep"></div>
+  <div class="status-item"><div class="s-led blue"></div><span class="s-text">KNOWLEDGE RAG : RUNNING</span></div>
+  <div class="s-sep"></div>
+  <div class="status-item"><div class="s-led warn"></div><span class="s-text">PDF MARKUP : IN PROGRESS 10%</span></div>
+  <div class="s-right">최종 업데이트 : <span id="lastUpdate">--</span></div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- LEFT NAV -->
+  <div class="leftnav">
+    <div class="nav-logo-area">
+      <div class="nav-logo-title">AI TASK FORCE</div>
+      <div class="nav-logo-sub">진행현황 모니터링</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-sec-title">VIEW</div>
+      <div class="nav-item active" onclick="filterPhase('all',this)" data-phase="all"><i class="fa-solid fa-table-cells"></i> 전체 보기</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-sec-title">PLC PHASE</div>
+      <div class="nav-item" onclick="filterPhase('QG-P0',this)" data-phase="QG-P0"><i class="fa-solid fa-circle" style="color:var(--yoko-teal)"></i> QG-P0 Pre-Project</div>
+      <div class="nav-item" onclick="filterPhase('QG-P1',this)" data-phase="QG-P1"><i class="fa-solid fa-circle" style="color:var(--yoko-blue)"></i> QG-P1 Initiation</div>
+      <div class="nav-item" onclick="filterPhase('QG-P2',this)" data-phase="QG-P2"><i class="fa-solid fa-circle" style="color:var(--yoko-green)"></i> QG-P2 Basic Design</div>
+      <div class="nav-item" onclick="filterPhase('QG-P3',this)" data-phase="QG-P3"><i class="fa-solid fa-circle" style="color:#E67C00"></i> QG-P3 Detail Design</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-sec-title">CATEGORY</div>
+      <div class="nav-item" onclick="filterCatNav('Engineering',this)"><i class="fa-solid fa-gear" style="color:#1565C0"></i> Engineering</div>
+      <div class="nav-item" onclick="filterCatNav('Analysis',this)"><i class="fa-solid fa-magnifying-glass" style="color:var(--yoko-teal)"></i> Analysis</div>
+      <div class="nav-item" onclick="filterCatNav('Agent',this)"><i class="fa-solid fa-robot" style="color:var(--yoko-green)"></i> Agent</div>
+      <div class="nav-item" onclick="filterCatNav('IT',this)"><i class="fa-solid fa-server" style="color:#0277BD"></i> IT</div>
+      <div class="nav-item" onclick="filterCatNav('Media',this)"><i class="fa-solid fa-video" style="color:#6A1B9A"></i> Media</div>
+      <div class="nav-item" onclick="filterCatNav('Culture',this)"><i class="fa-solid fa-users" style="color:#558B2F"></i> Culture</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-item nav-add" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> 항목 추가</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <div class="header-panel">
+      <div>
+        <h1>AITF 진행현황 <span>DASHBOARD</span></h1>
+        <p>Yokogawa Korea · Project Delivery Division · AI Task Force Progress Monitor</p>
+      </div>
+      <button class="hmi-btn primary" onclick="openAddModal()"><i class="fa-solid fa-plus"></i>&nbsp; 항목 추가</button>
+    </div>
+
+    <div class="plc-tabs">
+      <div class="plc-tab tab-all active" onclick="filterPhaseTab('all',this)">ALL<span class="tab-count" id="tc-all">—</span></div>
+      <div class="plc-tab tab-p0" onclick="filterPhaseTab('QG-P0',this)">QG-P0<span class="tab-count" id="tc-p0">—</span></div>
+      <div class="plc-tab tab-p1" onclick="filterPhaseTab('QG-P1',this)">QG-P1<span class="tab-count" id="tc-p1">—</span></div>
+      <div class="plc-tab tab-p2" onclick="filterPhaseTab('QG-P2',this)">QG-P2<span class="tab-count" id="tc-p2">—</span></div>
+      <div class="plc-tab tab-p3" onclick="filterPhaseTab('QG-P3',this)">QG-P3<span class="tab-count" id="tc-p3">—</span></div>
+    </div>
+
+    <div class="kpi-row" id="kpiRow"></div>
+
+    <div class="filter-row">
+      <span class="filter-label">카테고리 ▸</span>
+      <button class="chip-btn active" data-cat="all" onclick="filterCat('all',this)">전체</button>
+      <button class="chip-btn" data-cat="Engineering" onclick="filterCat('Engineering',this)">Engineering</button>
+      <button class="chip-btn" data-cat="Analysis" onclick="filterCat('Analysis',this)">Analysis</button>
+      <button class="chip-btn" data-cat="Agent" onclick="filterCat('Agent',this)">Agent</button>
+      <button class="chip-btn" data-cat="IT" onclick="filterCat('IT',this)">IT</button>
+      <button class="chip-btn" data-cat="Media" onclick="filterCat('Media',this)">Media</button>
+      <button class="chip-btn" data-cat="Culture" onclick="filterCat('Culture',this)">Culture</button>
+    </div>
+
+    <div class="grid-area">
+      <div>
+        <div class="card-grid" id="cardGrid"></div>
+        <div class="add-row">
+          <button class="add-card-btn" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> 새 AITF 항목 추가</button>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="side-panel">
+          <div class="side-panel-title"><i class="fa-solid fa-chart-pie"></i> 진행 현황 분포</div>
+          <div class="side-panel-body"><div class="donut-wrap"><svg class="donut-svg" viewBox="0 0 100 100" id="donutSvg"></svg><div class="donut-legend" id="donutLegend"></div></div></div>
+        </div>
+        <div class="side-panel">
+          <div class="side-panel-title"><i class="fa-solid fa-bars-progress"></i> 카테고리별 평균 진도</div>
+          <div class="side-panel-body"><div class="cat-list" id="catBars"></div></div>
+        </div>
+        <div class="side-panel">
+          <div class="side-panel-title"><i class="fa-solid fa-layer-group"></i> PLC 단계 분포</div>
+          <div class="side-panel-body"><div class="plc-list" id="plcDist"></div></div>
+        </div>
+        <div class="side-panel">
+          <div class="side-panel-title"><i class="fa-solid fa-circle-info"></i> 상태 기준</div>
+          <div class="side-panel-body">
+            <div class="legend-list">
+              <div class="legend-row"><div class="legend-dot" style="background:var(--status-done)"></div><span class="legend-text">완료 (100%)</span></div>
+              <div class="legend-row"><div class="legend-dot" style="background:var(--status-prog)"></div><span class="legend-text">진행중 (50 ~ 99%)</span></div>
+              <div class="legend-row"><div class="legend-dot" style="background:var(--status-part)"></div><span class="legend-text">일부 시작 (1 ~ 49%)</span></div>
+              <div class="legend-row"><div class="legend-dot" style="background:var(--status-none)"></div><span class="legend-text">미시작 (0%)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-titlebar">
+      <h3 id="modalTitle">항목 편집</h3>
+      <span class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-row"><label>제목</label><input type="text" id="editName" placeholder="항목명을 입력하세요"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="form-row"><label>PLC Phase</label>
+          <select id="editPhase">
+            <option value="QG-P0">QG-P0 · Pre-Project</option>
+            <option value="QG-P1">QG-P1 · Initiation</option>
+            <option value="QG-P2">QG-P2 · Basic Design</option>
+            <option value="QG-P3">QG-P3 · Detail Design</option>
+            <option value="QG-P4">QG-P4 · Internal Test</option>
+            <option value="QG-P5">QG-P5 · FAT</option>
+          </select>
+        </div>
+        <div class="form-row"><label>카테고리</label>
+          <select id="editCategory">
+            <option>Engineering</option><option>Analysis</option><option>Agent</option>
+            <option>IT</option><option>Media</option><option>Culture</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row"><label>진행률</label>
+        <div class="range-wrap">
+          <input type="range" id="editStatus" min="0" max="1" step="0.05" oninput="document.getElementById('editStatusVal').textContent=Math.round(this.value*100)+'%'">
+          <div class="range-val"><span id="editStatusVal">50%</span></div>
+        </div>
+      </div>
+      <div class="form-row"><label>설명</label><textarea id="editDesc" placeholder="항목 설명을 입력하세요"></textarea></div>
+      <div class="form-row"><label>진행 결과 / 현황 메모</label><textarea id="editResult" placeholder="현재까지 진행 결과 및 특이사항"></textarea></div>
+      <div class="form-row"><label>Tasks (쉼표로 구분)</label><input type="text" id="editTasks"></div>
+      <div class="form-row"><label>Tools (쉼표로 구분)</label><input type="text" id="editTools"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn del" id="deleteBtn" onclick="deleteItem()">삭제</button>
+      <button class="modal-btn" onclick="closeModal()">취소</button>
+      <button class="modal-btn save" onclick="saveItem()">저장</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY='aitf_light_v1';
+const DEFAULT_DATA=[
+  {id:1,title:"Flow Chart 자동화",phase:"QG-P3",category:"Engineering",status:0.5,desc:"Control narrative 분석을 통해 로직 Flow 및 시퀀스 차트를 자동 생성합니다.",tasks:["PDF 파싱 로직 안정화","Mermaid 차트 변환 모듈 개발"],tools:["Python","OpenAI API","Mermaid"],result:"생성형 AI 활용 Control narrative 기반 Flow chart를 .SVG → Visio 수정 가능 구조로 작성."},
+  {id:2,title:"IO List 검증",phase:"QG-P3",category:"Engineering",status:0.5,desc:"태그 중복, 오타, 설정 오류를 AI가 실시간으로 검증합니다.",tasks:["중복 데이터 필터링","프롬프트 튜닝"],tools:["Copilot","Excel VBA"],result:"Copilot Agent 활용 IO list review Agent 검토. M365 Copilot license 업그레이드 필요."},
+  {id:3,title:"Spec Review",phase:"QG-P1",category:"Analysis",status:0.5,desc:"다양한 type의 문서(비정형 data) URS/GS 문서를 검토, 계약서 / Spec 문서 등.",tasks:["NotebookLM 학습 최적화","근거 페이지 매핑"],tools:["NotebookLM","MS365 Copilot"],result:"NotebookLM or M365 Copilot으로 RAG 기반 비정형 data 문서화 가능."},
+  {id:4,title:"AI Video 제작",phase:"QG-P2",category:"Media",status:0.75,desc:"프로젝트 홍보 및 교육용 쇼츠 영상을 AI로 생성합니다.",tasks:["스크립트 자동 생성","AI 성우 나레이션 결합"],tools:["HeyGen","Runway"],result:"AI 기능 Test 완료. 항목 증가 시 홍보 shorts 영상 제작 검토 예정."},
+  {id:5,title:"Personal Agent",phase:"QG-P0",category:"Agent",status:0.5,desc:"아웃룩-SQL 연동을 통해 메일 분석 및 업무 자동화를 수행합니다.",tasks:["SQL 데이터베이스 연동 완료","VS Code 확장 프로그램 배포"],tools:["VS Code","Python","SQL"],result:"AI 코딩 활용 mail 요약 agent 개발 진행 중."},
+  {id:6,title:"Reverse Eng.",phase:"QG-P3",category:"Engineering",status:0.8,desc:"기존 시퀀스 데이터를 분석하여 엔지니어링 데이터를 역추출합니다.",tasks:["Centum 시퀀스 파싱","데이터 매핑 자동화"],tools:["Python","Regular Expression"],result:"DB → Flow chart 자동 Visio 출력. Step / Non-step 시퀀스 모두 지원."},
+  {id:8,title:"Knowledge RAG",phase:"QG-P0",category:"IT",status:1.0,desc:"사내 기술 DB를 학습시킨 챗봇을 구축하여 지식을 자산화합니다.",tasks:["사내 문서 임베딩","카카오톡 채널 연동"],tools:["LangChain","Pinecone"],result:"PD-Bot Production 운영 중. 지속적 update 및 관리 필요."},
+  {id:9,title:"Prompt Sharing",phase:"QG-P0",category:"Culture",status:0.4,desc:"직무별 최적화된 프롬프트를 공유하고 표준화합니다.",tasks:["프롬프트 라이브러리 구축","사내 워크샵 개최"],tools:["NotebookLM","MS365 Copilot"],result:"계약서 검토 Prompt 작성 완료. Spec Review(#3) 항목과 연계 운영."},
+  {id:10,title:"PDF Markup",phase:"QG-P3",category:"Engineering",status:0.1,desc:"P&ID의 PDF 도면에 태그 하이라이트 처리를 자동화합니다.",tasks:["좌표 기반 마킹 정확도 개선","배치 프로세스 최적화"],tools:["Python (PyMuPDF)"],result:"P&ID에서 Tag 기준 Loop mark-up 출력 → Yget 활용 고려 중."}
+];
+const CAT_COL={Engineering:'#1565C0',Analysis:'#00838F',Media:'#6A1B9A',Agent:'#00A651',IT:'#0277BD',Culture:'#558B2F'};
+const PHASE_COL={'QG-P0':'#00838F','QG-P1':'#0057B8','QG-P2':'#00A651','QG-P3':'#E67C00','QG-P4':'#6A1B9A','QG-P5':'#C62828'};
+const PHASE_BG={'QG-P0':'#E0F7FA','QG-P1':'#E3F0FF','QG-P2':'#E8F5E9','QG-P3':'#FFF3E0','QG-P4':'#F3E5F5','QG-P5':'#FFEBEE'};
+const CAT_BG={Engineering:'#E3F0FF',Analysis:'#E0F7FA',Media:'#F3E5F5',Agent:'#E8F5E9',IT:'#E1F5FE',Culture:'#F1F8E9'};
+
+let items=[],activePhase='all',activeCat='all';
+function loadData(){try{const s=localStorage.getItem(STORAGE_KEY);items=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_DATA));}catch(e){items=JSON.parse(JSON.stringify(DEFAULT_DATA));}}
+function saveData(){localStorage.setItem(STORAGE_KEY,JSON.stringify(items));}
+function getSI(s){if(s>=1)return'si-done';if(s>=0.5)return'si-prog';if(s>0)return'si-part';return'si-none';}
+function getSTxt(s){if(s>=1)return'완료';if(s>=0.5)return'진행중';if(s>0)return'일부 시작';return'미시작';}
+function getPC(s){if(s>=1)return'#00A651';if(s>=0.5)return'#0057B8';if(s>0)return'#E67C00';return'#9EAABF';}
+
+function renderCards(){
+  const grid=document.getElementById('cardGrid');grid.innerHTML='';
+  const filtered=items.filter(it=>(activePhase==='all'||it.phase===activePhase)&&(activeCat==='all'||it.category===activeCat));
+  if(!filtered.length){grid.innerHTML='<div style="font-size:14px;color:var(--text-dim);padding:24px">해당 조건의 항목이 없습니다.</div>';return;}
+  filtered.forEach(it=>{
+    const pct=Math.round(it.status*100),col=getPC(it.status);
+    const tasks=Array.isArray(it.tasks)?it.tasks:[],tools=Array.isArray(it.tools)?it.tools:[];
+    const pCol=PHASE_COL[it.phase]||'#0057B8',pBg=PHASE_BG[it.phase]||'#E3F0FF';
+    const cCol=CAT_COL[it.category]||'#1565C0',cBg=CAT_BG[it.category]||'#E3F0FF';
+    const div=document.createElement('div');div.className='item-card';
+    div.innerHTML=`
+      <div class="card-titlebar">
+        <div class="card-titlebar-left">
+          <span class="card-num">#${String(it.id).padStart(2,'0')}</span>
+          <span class="card-name">${it.title}</span>
+        </div>
+        <span class="card-edit-btn" onclick="event.stopPropagation();openEditModal(${it.id})"><i class="fa-solid fa-pen"></i> 편집</span>
+      </div>
+      <div class="card-body">
+        <div class="card-badges">
+          <span class="hmi-badge" style="color:${pCol};background:${pBg}">${it.phase}</span>
+          <span class="hmi-badge" style="color:${cCol};background:${cBg}">${it.category}</span>
+        </div>
+        <div class="card-desc">${it.desc}</div>
+        <div class="status-row">
+          <div class="s-indicator ${getSI(it.status)}"></div>
+          <span class="s-label" style="color:${col}">${getSTxt(it.status)}</span>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-header">
+            <span>PROGRESS</span>
+            <strong style="color:${col}">${pct}%</strong>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${col}"></div></div>
+        </div>
+        <div class="tool-row">${tools.map(t=>`<span class="tool-chip">${t}</span>`).join('')}</div>
+      </div>
+      <div class="toggle-row" onclick="toggleDetail(this)"><i class="fa-solid fa-chevron-right"></i> 상세 보기</div>
+      <div class="detail-body">
+        ${tasks.length?`<div class="detail-task-title">TASKS</div>${tasks.map(t=>`<div class="detail-task-item">${t}</div>`).join('')}`:''}
+        ${it.result?`<div class="result-box">${it.result}</div>`:''}
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+function toggleDetail(el){const b=el.nextElementSibling,open=b.classList.toggle('open');el.innerHTML=open?'<i class="fa-solid fa-chevron-down"></i> 접기':'<i class="fa-solid fa-chevron-right"></i> 상세 보기';}
+function renderKPI(){
+  const total=items.length,done=items.filter(i=>i.status>=1).length,prog=items.filter(i=>i.status>=0.5&&i.status<1).length,part=items.filter(i=>i.status>0&&i.status<0.5).length,avg=items.length?Math.round(items.reduce((s,i)=>s+i.status,0)/items.length*100):0;
+  document.getElementById('kpiRow').innerHTML=`
+    <div class="kpi-box k-total"><div class="kpi-lbl">전체 항목</div><div class="kpi-val">${total}</div><div class="kpi-sub">AITF Tasks</div></div>
+    <div class="kpi-box k-done"><div class="kpi-lbl">완료</div><div class="kpi-val">${done}</div><div class="kpi-sub">100% 완료</div></div>
+    <div class="kpi-box k-prog"><div class="kpi-lbl">진행중</div><div class="kpi-val">${prog}</div><div class="kpi-sub">50 ~ 99%</div></div>
+    <div class="kpi-box k-part"><div class="kpi-lbl">일부 시작</div><div class="kpi-val">${part}</div><div class="kpi-sub">1 ~ 49%</div></div>
+    <div class="kpi-box k-avg"><div class="kpi-lbl">전체 평균 진도</div><div class="kpi-val">${avg}%</div><div class="kpi-sub">Overall Progress</div></div>`;
+}
+function renderTabs(){
+  const cnt={};items.forEach(i=>{cnt[i.phase]=(cnt[i.phase]||0)+1;});
+  document.getElementById('tc-all').textContent=items.length;
+  ['P0','P1','P2','P3'].forEach(p=>{const el=document.getElementById('tc-'+p.toLowerCase());if(el)el.textContent=cnt['QG-'+p]||0;});
+}
+function renderDonut(){
+  const done=items.filter(i=>i.status>=1).length,prog=items.filter(i=>i.status>=0.5&&i.status<1).length,part=items.filter(i=>i.status>0&&i.status<0.5).length,none=items.filter(i=>i.status<=0).length,total=items.length;
+  const segs=[{l:'완료',v:done,c:'#00A651'},{l:'진행중',v:prog,c:'#0057B8'},{l:'일부시작',v:part,c:'#E67C00'},{l:'미시작',v:none,c:'#9EAABF'}].filter(s=>s.v>0);
+  const R=35,cx=50,cy=50,st=13,circ=2*Math.PI*R;let off=0,paths=`<circle cx="50" cy="50" r="35" fill="none" stroke="#EAEcF2" stroke-width="13"/>`;
+  segs.forEach(s=>{const len=circ*(s.v/total);paths+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${s.c}" stroke-width="${st}" stroke-dasharray="${len} ${circ-len}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})"/>`;off+=len;});
+  paths+=`<text x="50" y="47" text-anchor="middle" fill="#1A2340" font-size="16" font-family="Share Tech Mono,monospace" font-weight="700">${total}</text><text x="50" y="57" text-anchor="middle" fill="#8A96B0" font-size="7" font-family="Noto Sans KR,sans-serif">items</text>`;
+  document.getElementById('donutSvg').innerHTML=paths;
+  document.getElementById('donutLegend').innerHTML=segs.map(s=>`<div class="leg-row"><div class="leg-dot" style="background:${s.c}"></div><span class="leg-lbl">${s.l}</span><span class="leg-val" style="color:${s.c}">${s.v}</span></div>`).join('');
+}
+function renderCatBars(){
+  const cats={};items.forEach(i=>{if(!cats[i.category])cats[i.category]={sum:0,cnt:0};cats[i.category].sum+=i.status;cats[i.category].cnt++;});
+  document.getElementById('catBars').innerHTML=Object.entries(cats).map(([cat,v])=>{const avg=Math.round(v.sum/v.cnt*100),col=CAT_COL[cat]||'#1565C0';return`<div><div class="cat-row-lbl"><span style="color:${col};font-weight:600">${cat}</span><span>${avg}%</span></div><div class="cat-track"><div class="cat-fill" style="width:${avg}%;background:${col}"></div></div></div>`;}).join('');
+}
+function renderPLCDist(){
+  const phases={};items.forEach(i=>{phases[i.phase]=(phases[i.phase]||0)+1;});const max=Math.max(...Object.values(phases));
+  document.getElementById('plcDist').innerHTML=Object.entries(phases).sort((a,b)=>a[0].localeCompare(b[0])).map(([ph,cnt])=>{const col=PHASE_COL[ph]||'#0057B8';return`<div class="plc-row"><span class="plc-lbl" style="color:${col}">${ph}</span><div class="plc-track"><div class="plc-fill" style="width:${cnt/max*100}%;background:${col}"></div></div><span class="plc-cnt">${cnt}</span></div>`;}).join('');
+}
+function renderAll(){renderKPI();renderTabs();renderCards();renderDonut();renderCatBars();renderPLCDist();document.getElementById('lastUpdate').textContent=new Date().toISOString().split('T')[0];}
+function filterPhase(ph,el){activePhase=ph;document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));if(el)el.classList.add('active');const map={'all':'tab-all','QG-P0':'tab-p0','QG-P1':'tab-p1','QG-P2':'tab-p2','QG-P3':'tab-p3'};document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));document.querySelector('.'+map[ph])?.classList.add('active');renderCards();}
+function filterPhaseTab(ph,el){activePhase=ph;document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));document.querySelector(`.nav-item[data-phase="${ph}"]`)?.classList.add('active');renderCards();}
+function filterCat(cat,el){activeCat=cat;document.querySelectorAll('.chip-btn').forEach(e=>e.classList.remove('active'));el.classList.add('active');renderCards();}
+function filterCatNav(cat,el){activeCat=cat;document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.chip-btn').forEach(e=>e.classList.remove('active'));document.querySelector(`.chip-btn[data-cat="${cat}"]`)?.classList.add('active');renderCards();}
+function openAddModal(){document.getElementById('modalTitle').textContent='새 항목 추가';document.getElementById('editId').value='';document.getElementById('editName').value='';document.getElementById('editPhase').value='QG-P3';document.getElementById('editCategory').value='Engineering';document.getElementById('editStatus').value=0.5;document.getElementById('editStatusVal').textContent='50%';document.getElementById('editDesc').value='';document.getElementById('editResult').value='';document.getElementById('editTasks').value='';document.getElementById('editTools').value='';document.getElementById('deleteBtn').style.display='none';document.getElementById('editModal').classList.add('open');}
+function openEditModal(id){const it=items.find(i=>i.id===id);if(!it)return;document.getElementById('modalTitle').textContent='항목 편집 — '+it.title;document.getElementById('editId').value=id;document.getElementById('editName').value=it.title;document.getElementById('editPhase').value=it.phase;document.getElementById('editCategory').value=it.category;document.getElementById('editStatus').value=it.status;document.getElementById('editStatusVal').textContent=Math.round(it.status*100)+'%';document.getElementById('editDesc').value=it.desc||'';document.getElementById('editResult').value=it.result||'';document.getElementById('editTasks').value=(it.tasks||[]).join(', ');document.getElementById('editTools').value=(it.tools||[]).join(', ');document.getElementById('deleteBtn').style.display='block';document.getElementById('editModal').classList.add('open');}
+function closeModal(){document.getElementById('editModal').classList.remove('open');}
+function saveItem(){const id=document.getElementById('editId').value,title=document.getElementById('editName').value.trim();if(!title){alert('제목을 입력하세요.');return;}const data={title,phase:document.getElementById('editPhase').value,category:document.getElementById('editCategory').value,status:parseFloat(document.getElementById('editStatus').value),desc:document.getElementById('editDesc').value.trim(),result:document.getElementById('editResult').value.trim(),tasks:document.getElementById('editTasks').value.split(',').map(s=>s.trim()).filter(Boolean),tools:document.getElementById('editTools').value.split(',').map(s=>s.trim()).filter(Boolean)};if(id){const idx=items.findIndex(i=>i.id===parseInt(id));if(idx>=0)Object.assign(items[idx],data);}else{data.id=Date.now();items.push(data);}saveData();closeModal();renderAll();showToast('저장 완료');}
+function deleteItem(){const id=parseInt(document.getElementById('editId').value);if(!id)return;if(!confirm('이 항목을 삭제하시겠습니까?'))return;items=items.filter(i=>i.id!==id);saveData();closeModal();renderAll();showToast('삭제 완료');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent='✓ '+msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+function updateClock(){const now=new Date();document.getElementById('clock').textContent=now.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace('.','')+' '+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(updateClock,1000);updateClock();
+loadData();renderAll();
+</script>
+</body>
+</html>
