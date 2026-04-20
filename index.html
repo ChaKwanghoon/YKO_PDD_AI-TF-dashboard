@@ -691,7 +691,14 @@ function saveItem(){const id=document.getElementById('editId').value,title=docum
 function deleteItem(){const id=parseInt(document.getElementById('editId').value);if(!id)return;if(!confirm('이 항목을 삭제하시겠습니까?'))return;items=items.filter(i=>i.id!==id);saveData();closeModal();renderAll();showToast('삭제 완료');}
 function showToast(msg){const t=document.getElementById('toast');t.textContent='✓ '+msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
-function updateClock(){const now=new Date();document.getElementById('clock').textContent=now.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace('.','')+' '+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+function updateClock(){
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth()+1).padStart(2,'0');
+  const dd = String(now.getDate()).padStart(2,'0');
+  const time = now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('clock').textContent = yyyy+'.'+mm+'.'+dd+'. '+time;
+}
 setInterval(updateClock,1000);updateClock();
 loadData();renderAll();
 </script>
