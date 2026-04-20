@@ -239,6 +239,8 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
   background:#fff; padding:2px 7px; border:1px solid var(--border); border-radius:3px;
 }
 .card-name { font-weight:700; font-size:15px; color:var(--text); }
+.card-name.has-link { color:var(--yoko-blue); cursor:pointer; border-bottom:1px dashed var(--yoko-blue); transition:all 0.15s; }
+.card-name.has-link:hover { color:var(--yoko-navy); border-bottom:1px solid var(--yoko-navy); background:rgba(0,87,184,0.08); border-radius:2px; padding:1px 4px; }
 .card-edit-btn {
   font-size:11px; color:var(--text-dim); cursor:pointer; padding:4px 10px;
   border:1px solid var(--border); background:#fff; border-radius:3px;
@@ -567,6 +569,13 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
       <div class="form-row"><label>진행 결과 / 현황 메모</label><textarea id="editResult" placeholder="현재까지 진행 결과 및 특이사항"></textarea></div>
       <div class="form-row"><label>Tasks (쉼표로 구분)</label><input type="text" id="editTasks"></div>
       <div class="form-row"><label>Tools (쉼표로 구분)</label><input type="text" id="editTools"></div>
+      <div class="form-row">
+        <label><i class="fa-solid fa-link" style="color:var(--yoko-blue);margin-right:4px"></i>링크 URL (클릭 시 이동할 주소)</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="text" id="editLink" placeholder="https://example.com (없으면 비워두세요)">
+          <button type="button" onclick="testLink()" style="padding:9px 14px;background:var(--yoko-blue);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:12px;white-space:nowrap;font-weight:600">테스트</button>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="modal-btn del" id="deleteBtn" onclick="deleteItem()">삭제</button>
@@ -586,7 +595,7 @@ const DEFAULT_DATA=[
   {id:4,title:"AI Video 제작",phase:"QG-P2",category:"Media",status:0.75,desc:"프로젝트 홍보 및 교육용 쇼츠 영상을 AI로 생성합니다.",tasks:["스크립트 자동 생성","AI 성우 나레이션 결합"],tools:["HeyGen","Runway"],result:"AI 기능 Test 완료. 항목 증가 시 홍보 shorts 영상 제작 검토 예정."},
   {id:5,title:"Personal Agent",phase:"QG-P0",category:"Agent",status:0.5,desc:"아웃룩-SQL 연동을 통해 메일 분석 및 업무 자동화를 수행합니다.",tasks:["SQL 데이터베이스 연동 완료","VS Code 확장 프로그램 배포"],tools:["VS Code","Python","SQL"],result:"AI 코딩 활용 mail 요약 agent 개발 진행 중."},
   {id:6,title:"Reverse Eng.",phase:"QG-P3",category:"Engineering",status:0.8,desc:"기존 시퀀스 데이터를 분석하여 엔지니어링 데이터를 역추출합니다.",tasks:["Centum 시퀀스 파싱","데이터 매핑 자동화"],tools:["Python","Regular Expression"],result:"DB → Flow chart 자동 Visio 출력. Step / Non-step 시퀀스 모두 지원."},
-  {id:8,title:"Knowledge RAG",phase:"QG-P0",category:"IT",status:1.0,desc:"사내 기술 DB를 학습시킨 챗봇을 구축하여 지식을 자산화합니다.",tasks:["사내 문서 임베딩","카카오톡 채널 연동"],tools:["LangChain","Pinecone"],result:"PD-Bot Production 운영 중. 지속적 update 및 관리 필요."},
+  {id:8,title:"Knowledge RAG (PD-Bot)",phase:"QG-P0",category:"IT",status:1.0,link:null,desc:"사내 기술 DB를 학습시킨 챗봇을 구축하여 지식을 자산화합니다.",tasks:["사내 문서 임베딩","카카오톡 채널 연동"],tools:["LangChain","Pinecone"],result:"PD-Bot Production 운영 중. 지속적 update 및 관리 필요."},
   {id:9,title:"Prompt Sharing",phase:"QG-P0",category:"Culture",status:0.4,desc:"직무별 최적화된 프롬프트를 공유하고 표준화합니다.",tasks:["프롬프트 라이브러리 구축","사내 워크샵 개최"],tools:["NotebookLM","MS365 Copilot"],result:"계약서 검토 Prompt 작성 완료. Spec Review(#3) 항목과 연계 운영."},
   {id:10,title:"PDF Markup",phase:"QG-P3",category:"Engineering",status:0.1,desc:"P&ID의 PDF 도면에 태그 하이라이트 처리를 자동화합니다.",tasks:["좌표 기반 마킹 정확도 개선","배치 프로세스 최적화"],tools:["Python (PyMuPDF)"],result:"P&ID에서 Tag 기준 Loop mark-up 출력 → Yget 활용 고려 중."}
 ];
@@ -616,8 +625,7 @@ function renderCards(){
       <div class="card-titlebar">
         <div class="card-titlebar-left">
           <span class="card-num">#${String(it.id).padStart(2,'0')}</span>
-          <span class="card-name" ${it.link ? `onclick="window.open('${it.link}','_blank')" style="cursor:pointer;text-decoration:underline;color:var(--yoko-blue)"` : ''}>
-  ${it.title}${it.link ? ' <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px"></i>' : ''}</span>
+          <span class="card-name ${it.link ? 'has-link' : ''}" ${it.link ? `onclick="window.open('${it.link}','_blank')" title="클릭하여 링크 열기"` : ''}>${it.title}${it.link ? ' <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;margin-left:4px"></i>' : ''}</span>
         </div>
         <span class="card-edit-btn" onclick="event.stopPropagation();openEditModal(${it.id})"><i class="fa-solid fa-pen"></i> 편집</span>
       </div>
@@ -685,11 +693,17 @@ function filterPhase(ph,el){activePhase=ph;document.querySelectorAll('.nav-item[
 function filterPhaseTab(ph,el){activePhase=ph;document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));document.querySelector(`.nav-item[data-phase="${ph}"]`)?.classList.add('active');renderCards();}
 function filterCat(cat,el){activeCat=cat;document.querySelectorAll('.chip-btn').forEach(e=>e.classList.remove('active'));el.classList.add('active');renderCards();}
 function filterCatNav(cat,el){activeCat=cat;document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.chip-btn').forEach(e=>e.classList.remove('active'));document.querySelector(`.chip-btn[data-cat="${cat}"]`)?.classList.add('active');renderCards();}
-function openAddModal(){document.getElementById('modalTitle').textContent='새 항목 추가';document.getElementById('editId').value='';document.getElementById('editName').value='';document.getElementById('editPhase').value='QG-P3';document.getElementById('editCategory').value='Engineering';document.getElementById('editStatus').value=0.5;document.getElementById('editStatusVal').textContent='50%';document.getElementById('editDesc').value='';document.getElementById('editResult').value='';document.getElementById('editTasks').value='';document.getElementById('editTools').value='';document.getElementById('deleteBtn').style.display='none';document.getElementById('editModal').classList.add('open');}
-function openEditModal(id){const it=items.find(i=>i.id===id);if(!it)return;document.getElementById('modalTitle').textContent='항목 편집 — '+it.title;document.getElementById('editId').value=id;document.getElementById('editName').value=it.title;document.getElementById('editPhase').value=it.phase;document.getElementById('editCategory').value=it.category;document.getElementById('editStatus').value=it.status;document.getElementById('editStatusVal').textContent=Math.round(it.status*100)+'%';document.getElementById('editDesc').value=it.desc||'';document.getElementById('editResult').value=it.result||'';document.getElementById('editTasks').value=(it.tasks||[]).join(', ');document.getElementById('editTools').value=(it.tools||[]).join(', ');document.getElementById('deleteBtn').style.display='block';document.getElementById('editModal').classList.add('open');}
+function openAddModal(){document.getElementById('modalTitle').textContent='새 항목 추가';document.getElementById('editId').value='';document.getElementById('editName').value='';document.getElementById('editPhase').value='QG-P3';document.getElementById('editCategory').value='Engineering';document.getElementById('editStatus').value=0.5;document.getElementById('editStatusVal').textContent='50%';document.getElementById('editDesc').value='';document.getElementById('editResult').value='';document.getElementById('editTasks').value='';document.getElementById('editTools').value='';document.getElementById('editLink').value='';document.getElementById('deleteBtn').style.display='none';document.getElementById('editModal').classList.add('open');}
+function openEditModal(id){const it=items.find(i=>i.id===id);if(!it)return;document.getElementById('modalTitle').textContent='항목 편집 — '+it.title;document.getElementById('editId').value=id;document.getElementById('editName').value=it.title;document.getElementById('editPhase').value=it.phase;document.getElementById('editCategory').value=it.category;document.getElementById('editStatus').value=it.status;document.getElementById('editStatusVal').textContent=Math.round(it.status*100)+'%';document.getElementById('editDesc').value=it.desc||'';document.getElementById('editResult').value=it.result||'';document.getElementById('editTasks').value=(it.tasks||[]).join(', ');document.getElementById('editTools').value=(it.tools||[]).join(', ');document.getElementById('editLink').value=it.link||'';document.getElementById('deleteBtn').style.display='block';document.getElementById('editModal').classList.add('open');}
 function closeModal(){document.getElementById('editModal').classList.remove('open');}
-function saveItem(){const id=document.getElementById('editId').value,title=document.getElementById('editName').value.trim();if(!title){alert('제목을 입력하세요.');return;}const data={title,phase:document.getElementById('editPhase').value,category:document.getElementById('editCategory').value,status:parseFloat(document.getElementById('editStatus').value),desc:document.getElementById('editDesc').value.trim(),result:document.getElementById('editResult').value.trim(),tasks:document.getElementById('editTasks').value.split(',').map(s=>s.trim()).filter(Boolean),tools:document.getElementById('editTools').value.split(',').map(s=>s.trim()).filter(Boolean)};if(id){const idx=items.findIndex(i=>i.id===parseInt(id));if(idx>=0)Object.assign(items[idx],data);}else{data.id=Date.now();items.push(data);}saveData();closeModal();renderAll();showToast('저장 완료');}
+function saveItem(){const id=document.getElementById('editId').value,title=document.getElementById('editName').value.trim();if(!title){alert('제목을 입력하세요.');return;}const data={title,phase:document.getElementById('editPhase').value,category:document.getElementById('editCategory').value,status:parseFloat(document.getElementById('editStatus').value),desc:document.getElementById('editDesc').value.trim(),result:document.getElementById('editResult').value.trim(),tasks:document.getElementById('editTasks').value.split(',').map(s=>s.trim()).filter(Boolean),tools:document.getElementById('editTools').value.split(',').map(s=>s.trim()).filter(Boolean),link:document.getElementById('editLink').value.trim()||null};if(id){const idx=items.findIndex(i=>i.id===parseInt(id));if(idx>=0)Object.assign(items[idx],data);}else{data.id=Date.now();items.push(data);}saveData();closeModal();renderAll();showToast('저장 완료');}
 function deleteItem(){const id=parseInt(document.getElementById('editId').value);if(!id)return;if(!confirm('이 항목을 삭제하시겠습니까?'))return;items=items.filter(i=>i.id!==id);saveData();closeModal();renderAll();showToast('삭제 완료');}
+function testLink(){
+  const url=document.getElementById('editLink').value.trim();
+  if(!url){alert('링크 URL을 입력하세요.');return;}
+  if(!url.startsWith('http')){alert('URL은 https:// 로 시작해야 합니다.');return;}
+  window.open(url,'_blank');
+}
 function showToast(msg){const t=document.getElementById('toast');t.textContent='✓ '+msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 function updateClock(){
