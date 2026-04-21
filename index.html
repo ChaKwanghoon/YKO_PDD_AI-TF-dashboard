@@ -160,11 +160,17 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
 .plc-tab:hover { border-color:var(--border2); color:var(--text); background:var(--surface2); }
 .plc-tab .tab-count { font-family:'Share Tech Mono',monospace; font-size:20px; display:block; margin-top:2px; }
 .plc-tab.active { font-weight:700; border-bottom-width:3px; }
+.tab-sub { font-size:9px; display:block; opacity:0.75; margin-top:1px; font-family:'Noto Sans KR',sans-serif; font-weight:400; letter-spacing:0; }
 .tab-all.active  { background:#EEF4FF; border-color:var(--yoko-blue); color:var(--yoko-blue); border-bottom-color:var(--yoko-blue); }
 .tab-p0.active   { background:#E0F7FA; border-color:var(--yoko-teal); color:var(--yoko-teal); border-bottom-color:var(--yoko-teal); }
 .tab-p1.active   { background:#E3F0FF; border-color:var(--yoko-blue); color:var(--yoko-blue); border-bottom-color:var(--yoko-blue); }
 .tab-p2.active   { background:#E8F5E9; border-color:var(--yoko-green); color:var(--yoko-green2); border-bottom-color:var(--yoko-green); }
 .tab-p3.active   { background:#FFF3E0; border-color:#E67C00; color:#C85A00; border-bottom-color:#E67C00; }
+.tab-p4.active   { background:#F3E5F5; border-color:#6A1B9A; color:#6A1B9A; border-bottom-color:#6A1B9A; }
+.tab-p5.active   { background:#FFEBEE; border-color:#C62828; color:#C62828; border-bottom-color:#C62828; }
+.tab-p6.active   { background:#E0F2F1; border-color:#00695C; color:#00695C; border-bottom-color:#00695C; }
+.tab-p7.active   { background:#E8EAF6; border-color:#1565C0; color:#1565C0; border-bottom-color:#1565C0; }
+.tab-p8.active   { background:#ECEFF1; border-color:#37474F; color:#37474F; border-bottom-color:#37474F; }
 
 /* ── KPI ROW ── */
 .kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:14px; }
@@ -242,19 +248,12 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
 .card-name.has-link { color:var(--yoko-blue); cursor:pointer; border-bottom:1px dashed var(--yoko-blue); transition:all 0.15s; }
 .card-name.has-link:hover { color:var(--yoko-navy); border-bottom:1px solid var(--yoko-navy); background:rgba(0,87,184,0.08); border-radius:2px; padding:1px 4px; }
 .card-info-row { display:flex; gap:8px; align-items:center; margin-bottom:9px; flex-wrap:wrap; }
-.priority-badge {
-  font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;
-  display:flex; align-items:center; gap:4px; white-space:nowrap;
-}
+.priority-badge { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; display:flex; align-items:center; gap:4px; white-space:nowrap; }
 .p-high   { background:#FFEBEE; color:#C62828; border:1px solid #FFCDD2; }
 .p-mid    { background:#FFF8E1; color:#E65100; border:1px solid #FFE082; }
 .p-low    { background:#E8F5E9; color:#2E7D32; border:1px solid #A5D6A7; }
-.p-none   { background:#F5F5F5; color:#757575; border:1px solid #E0E0E0; }
-.owner-badge {
-  font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px;
-  background:#EEF4FF; color:var(--yoko-blue); border:1px solid #BBDEFB;
-  display:flex; align-items:center; gap:4px; white-space:nowrap;
-}
+.p-none   { background:#F5F5F5; color:#9E9E9E; border:1px solid #E0E0E0; }
+.owner-badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; background:#EEF4FF; color:var(--yoko-blue); border:1px solid #BBDEFB; display:flex; align-items:center; gap:4px; white-space:nowrap; }
 .card-edit-btn {
   font-size:11px; color:var(--text-dim); cursor:pointer; padding:4px 10px;
   border:1px solid var(--border); background:#fff; border-radius:3px;
@@ -457,10 +456,15 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
     </div>
     <div class="nav-section">
       <div class="nav-sec-title">PLC PHASE</div>
-      <div class="nav-item" onclick="filterPhase('QG-P0',this)" data-phase="QG-P0"><i class="fa-solid fa-circle" style="color:var(--yoko-teal)"></i> QG-P0 Pre-Project</div>
-      <div class="nav-item" onclick="filterPhase('QG-P1',this)" data-phase="QG-P1"><i class="fa-solid fa-circle" style="color:var(--yoko-blue)"></i> QG-P1 Initiation</div>
-      <div class="nav-item" onclick="filterPhase('QG-P2',this)" data-phase="QG-P2"><i class="fa-solid fa-circle" style="color:var(--yoko-green)"></i> QG-P2 Basic Design</div>
+      <div class="nav-item" onclick="filterPhase('QG-P0',this)" data-phase="QG-P0"><i class="fa-solid fa-circle" style="color:#00838F"></i> QG-P0 Pre-Project</div>
+      <div class="nav-item" onclick="filterPhase('QG-P1',this)" data-phase="QG-P1"><i class="fa-solid fa-circle" style="color:#0057B8"></i> QG-P1 Initiation</div>
+      <div class="nav-item" onclick="filterPhase('QG-P2',this)" data-phase="QG-P2"><i class="fa-solid fa-circle" style="color:#00A651"></i> QG-P2 Basic Design</div>
       <div class="nav-item" onclick="filterPhase('QG-P3',this)" data-phase="QG-P3"><i class="fa-solid fa-circle" style="color:#E67C00"></i> QG-P3 Detail Design</div>
+      <div class="nav-item" onclick="filterPhase('QG-P4',this)" data-phase="QG-P4"><i class="fa-solid fa-circle" style="color:#6A1B9A"></i> QG-P4 Internal Test</div>
+      <div class="nav-item" onclick="filterPhase('QG-P5',this)" data-phase="QG-P5"><i class="fa-solid fa-circle" style="color:#C62828"></i> QG-P5 FAT</div>
+      <div class="nav-item" onclick="filterPhase('QG-P6',this)" data-phase="QG-P6"><i class="fa-solid fa-circle" style="color:#00695C"></i> QG-P6 Shipment</div>
+      <div class="nav-item" onclick="filterPhase('QG-P7',this)" data-phase="QG-P7"><i class="fa-solid fa-circle" style="color:#1565C0"></i> QG-P7 Site Install</div>
+      <div class="nav-item" onclick="filterPhase('QG-P8',this)" data-phase="QG-P8"><i class="fa-solid fa-circle" style="color:#37474F"></i> QG-P8 Close-Out</div>
     </div>
     <div class="nav-section">
       <div class="nav-sec-title">CATEGORY</div>
@@ -489,10 +493,15 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
 
     <div class="plc-tabs">
       <div class="plc-tab tab-all active" onclick="filterPhaseTab('all',this)">ALL<span class="tab-count" id="tc-all">—</span></div>
-      <div class="plc-tab tab-p0" onclick="filterPhaseTab('QG-P0',this)">QG-P0<span class="tab-count" id="tc-p0">—</span></div>
-      <div class="plc-tab tab-p1" onclick="filterPhaseTab('QG-P1',this)">QG-P1<span class="tab-count" id="tc-p1">—</span></div>
-      <div class="plc-tab tab-p2" onclick="filterPhaseTab('QG-P2',this)">QG-P2<span class="tab-count" id="tc-p2">—</span></div>
-      <div class="plc-tab tab-p3" onclick="filterPhaseTab('QG-P3',this)">QG-P3<span class="tab-count" id="tc-p3">—</span></div>
+      <div class="plc-tab tab-p0" onclick="filterPhaseTab('QG-P0',this)">QG-P0<span class="tab-sub">Pre-Project</span><span class="tab-count" id="tc-p0">—</span></div>
+      <div class="plc-tab tab-p1" onclick="filterPhaseTab('QG-P1',this)">QG-P1<span class="tab-sub">Initiation</span><span class="tab-count" id="tc-p1">—</span></div>
+      <div class="plc-tab tab-p2" onclick="filterPhaseTab('QG-P2',this)">QG-P2<span class="tab-sub">Basic Design</span><span class="tab-count" id="tc-p2">—</span></div>
+      <div class="plc-tab tab-p3" onclick="filterPhaseTab('QG-P3',this)">QG-P3<span class="tab-sub">Detail Design</span><span class="tab-count" id="tc-p3">—</span></div>
+      <div class="plc-tab tab-p4" onclick="filterPhaseTab('QG-P4',this)">QG-P4<span class="tab-sub">Internal Test</span><span class="tab-count" id="tc-p4">—</span></div>
+      <div class="plc-tab tab-p5" onclick="filterPhaseTab('QG-P5',this)">QG-P5<span class="tab-sub">FAT</span><span class="tab-count" id="tc-p5">—</span></div>
+      <div class="plc-tab tab-p6" onclick="filterPhaseTab('QG-P6',this)">QG-P6<span class="tab-sub">Shipment</span><span class="tab-count" id="tc-p6">—</span></div>
+      <div class="plc-tab tab-p7" onclick="filterPhaseTab('QG-P7',this)">QG-P7<span class="tab-sub">Site Install</span><span class="tab-count" id="tc-p7">—</span></div>
+      <div class="plc-tab tab-p8" onclick="filterPhaseTab('QG-P8',this)">QG-P8<span class="tab-sub">Close-Out</span><span class="tab-count" id="tc-p8">—</span></div>
     </div>
 
     <div class="kpi-row" id="kpiRow"></div>
@@ -561,9 +570,12 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
             <option value="QG-P0">QG-P0 · Pre-Project</option>
             <option value="QG-P1">QG-P1 · Initiation</option>
             <option value="QG-P2">QG-P2 · Basic Design</option>
-            <option value="QG-P3">QG-P3 · Detail Design</option>
+            <option value="QG-P3">QG-P3 · Detail Design &amp; Impl.</option>
             <option value="QG-P4">QG-P4 · Internal Test</option>
             <option value="QG-P5">QG-P5 · FAT</option>
+            <option value="QG-P6">QG-P6 · Shipment &amp; Close Out</option>
+            <option value="QG-P7">QG-P7 · Site Installation &amp; SAT</option>
+            <option value="QG-P8">QG-P8 · Project Close-Out</option>
           </select>
         </div>
         <div class="form-row"><label>카테고리</label>
@@ -624,13 +636,13 @@ const DEFAULT_DATA=[
   {id:4,title:"AI Video 제작",phase:"QG-P2",category:"Media",status:0.75,desc:"프로젝트 홍보 및 교육용 쇼츠 영상을 AI로 생성합니다.",tasks:["스크립트 자동 생성","AI 성우 나레이션 결합"],tools:["HeyGen","Runway"],result:"AI 기능 Test 완료. 항목 증가 시 홍보 shorts 영상 제작 검토 예정."},
   {id:5,title:"Personal Agent",phase:"QG-P0",category:"Agent",status:0.5,desc:"아웃룩-SQL 연동을 통해 메일 분석 및 업무 자동화를 수행합니다.",tasks:["SQL 데이터베이스 연동 완료","VS Code 확장 프로그램 배포"],tools:["VS Code","Python","SQL"],result:"AI 코딩 활용 mail 요약 agent 개발 진행 중."},
   {id:6,title:"Reverse Eng.",phase:"QG-P3",category:"Engineering",status:0.8,desc:"기존 시퀀스 데이터를 분석하여 엔지니어링 데이터를 역추출합니다.",tasks:["Centum 시퀀스 파싱","데이터 매핑 자동화"],tools:["Python","Regular Expression"],result:"DB → Flow chart 자동 Visio 출력. Step / Non-step 시퀀스 모두 지원."},
-  {id:8,title:"Knowledge RAG (PD-Bot)",phase:"QG-P0",category:"IT",status:1.0,desc:"사내 기술 DB를 학습시킨 챗봇을 구축하여 지식을 자산화합니다.",tasks:["사내 문서 임베딩","카카오톡 채널 연동"],tools:["LangChain","Pinecone"],result:"PD-Bot Production 운영 중. 지속적 update 및 관리 필요."},
+  {id:8,title:"Knowledge RAG",phase:"QG-P0",category:"IT",status:1.0,desc:"사내 기술 DB를 학습시킨 챗봇을 구축하여 지식을 자산화합니다.",tasks:["사내 문서 임베딩","카카오톡 채널 연동"],tools:["LangChain","Pinecone"],result:"PD-Bot Production 운영 중. 지속적 update 및 관리 필요."},
   {id:9,title:"Prompt Sharing",phase:"QG-P0",category:"Culture",status:0.4,desc:"직무별 최적화된 프롬프트를 공유하고 표준화합니다.",tasks:["프롬프트 라이브러리 구축","사내 워크샵 개최"],tools:["NotebookLM","MS365 Copilot"],result:"계약서 검토 Prompt 작성 완료. Spec Review(#3) 항목과 연계 운영."},
   {id:10,title:"PDF Markup",phase:"QG-P3",category:"Engineering",status:0.1,desc:"P&ID의 PDF 도면에 태그 하이라이트 처리를 자동화합니다.",tasks:["좌표 기반 마킹 정확도 개선","배치 프로세스 최적화"],tools:["Python (PyMuPDF)"],result:"P&ID에서 Tag 기준 Loop mark-up 출력 → Yget 활용 고려 중."}
 ];
 const CAT_COL={Engineering:'#1565C0',Analysis:'#00838F',Media:'#6A1B9A',Agent:'#00A651',IT:'#0277BD',Culture:'#558B2F'};
-const PHASE_COL={'QG-P0':'#00838F','QG-P1':'#0057B8','QG-P2':'#00A651','QG-P3':'#E67C00','QG-P4':'#6A1B9A','QG-P5':'#C62828'};
-const PHASE_BG={'QG-P0':'#E0F7FA','QG-P1':'#E3F0FF','QG-P2':'#E8F5E9','QG-P3':'#FFF3E0','QG-P4':'#F3E5F5','QG-P5':'#FFEBEE'};
+const PHASE_COL={'QG-P0':'#00838F','QG-P1':'#0057B8','QG-P2':'#00A651','QG-P3':'#E67C00','QG-P4':'#6A1B9A','QG-P5':'#C62828','QG-P6':'#00695C','QG-P7':'#1565C0','QG-P8':'#37474F'};
+const PHASE_BG={'QG-P0':'#E0F7FA','QG-P1':'#E3F0FF','QG-P2':'#E8F5E9','QG-P3':'#FFF3E0','QG-P4':'#F3E5F5','QG-P5':'#FFEBEE','QG-P6':'#E0F2F1','QG-P7':'#E3F0FF','QG-P8':'#ECEFF1'};
 const CAT_BG={Engineering:'#E3F0FF',Analysis:'#E0F7FA',Media:'#F3E5F5',Agent:'#E8F5E9',IT:'#E1F5FE',Culture:'#F1F8E9'};
 
 let items=[],activePhase='all',activeCat='all';
@@ -642,7 +654,7 @@ function getPriorityBadge(p){
     'Medium':'<span class="priority-badge p-mid"><i class="fa-solid fa-circle-minus" style="font-size:10px"></i>Medium</span>',
     'Low':   '<span class="priority-badge p-low"><i class="fa-solid fa-circle-check" style="font-size:10px"></i>Low</span>',
   };
-  return map[p] || '<span class="priority-badge p-none"><i class="fa-regular fa-circle" style="font-size:10px"></i>미지정</span>';
+  return map[p]||'<span class="priority-badge p-none"><i class="fa-regular fa-circle" style="font-size:10px"></i>미지정</span>';
 }
 function getSI(s){if(s>=1)return'si-done';if(s>=0.5)return'si-prog';if(s>0)return'si-part';return'si-none';}
 function getSTxt(s){if(s>=1)return'완료';if(s>=0.5)return'진행중';if(s>0)return'일부 시작';return'미시작';}
@@ -710,7 +722,10 @@ function renderKPI(){
 function renderTabs(){
   const cnt={};items.forEach(i=>{cnt[i.phase]=(cnt[i.phase]||0)+1;});
   document.getElementById('tc-all').textContent=items.length;
-  ['P0','P1','P2','P3'].forEach(p=>{const el=document.getElementById('tc-'+p.toLowerCase());if(el)el.textContent=cnt['QG-'+p]||0;});
+  ['P0','P1','P2','P3','P4','P5','P6','P7','P8'].forEach(p=>{
+    const el=document.getElementById('tc-'+p.toLowerCase());
+    if(el)el.textContent=cnt['QG-'+p]||0;
+  });
 }
 function renderDonut(){
   const done=items.filter(i=>i.status>=1).length,prog=items.filter(i=>i.status>=0.5&&i.status<1).length,part=items.filter(i=>i.status>0&&i.status<0.5).length,none=items.filter(i=>i.status<=0).length,total=items.length;
@@ -730,7 +745,7 @@ function renderPLCDist(){
   document.getElementById('plcDist').innerHTML=Object.entries(phases).sort((a,b)=>a[0].localeCompare(b[0])).map(([ph,cnt])=>{const col=PHASE_COL[ph]||'#0057B8';return`<div class="plc-row"><span class="plc-lbl" style="color:${col}">${ph}</span><div class="plc-track"><div class="plc-fill" style="width:${cnt/max*100}%;background:${col}"></div></div><span class="plc-cnt">${cnt}</span></div>`;}).join('');
 }
 function renderAll(){renderKPI();renderTabs();renderCards();renderDonut();renderCatBars();renderPLCDist();document.getElementById('lastUpdate').textContent=new Date().toISOString().split('T')[0];}
-function filterPhase(ph,el){activePhase=ph;document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));if(el)el.classList.add('active');const map={'all':'tab-all','QG-P0':'tab-p0','QG-P1':'tab-p1','QG-P2':'tab-p2','QG-P3':'tab-p3'};document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));document.querySelector('.'+map[ph])?.classList.add('active');renderCards();}
+function filterPhase(ph,el){activePhase=ph;document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));if(el)el.classList.add('active');const map={'all':'tab-all','QG-P0':'tab-p0','QG-P1':'tab-p1','QG-P2':'tab-p2','QG-P3':'tab-p3','QG-P4':'tab-p4','QG-P5':'tab-p5','QG-P6':'tab-p6','QG-P7':'tab-p7','QG-P8':'tab-p8'};document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));document.querySelector('.'+map[ph])?.classList.add('active');renderCards();}
 function filterPhaseTab(ph,el){activePhase=ph;document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));document.querySelector(`.nav-item[data-phase="${ph}"]`)?.classList.add('active');renderCards();}
 function filterCat(cat,el){activeCat=cat;document.querySelectorAll('.chip-btn').forEach(e=>e.classList.remove('active'));el.classList.add('active');renderCards();}
 function filterCatNav(cat,el){activeCat=cat;document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.chip-btn').forEach(e=>e.classList.remove('active'));document.querySelector(`.chip-btn[data-cat="${cat}"]`)?.classList.add('active');renderCards();}
