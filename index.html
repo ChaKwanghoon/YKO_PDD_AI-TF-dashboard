@@ -627,17 +627,13 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
 </div>
 <div class="toast" id="toast"></div>
 
-<!-- ══════════════════════════════════════════════
-     AUTH OVERLAY  (로그인 화면)
-════════════════════════════════════════════════ -->
-<div id="authOverlay" style="
-  display:none; position:fixed; inset:0; z-index:9999;
-  background:linear-gradient(135deg,#003087 0%,#001850 60%,#002040 100%);
-  align-items:center; justify-content:center; flex-direction:column; gap:0;
-">
-  <div style="text-align:center; margin-bottom:32px;">
+<!-- ══════════════════════════════════════════
+     AUTH OVERLAY
+══════════════════════════════════════════ -->
+<div id="authOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#003087 0%,#001850 60%,#002040 100%);align-items:center;justify-content:center;flex-direction:column;">
+  <div style="text-align:center;margin-bottom:32px;">
     <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:10px;">
-      <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#fff 0%,#D0E8FF 100%);display:flex;align-items:center;justify-content:center;font-family:Rajdhani,sans-serif;font-weight:700;font-size:17px;color:#003087;">YK</div>
+      <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#fff,#D0E8FF);display:flex;align-items:center;justify-content:center;font-family:Rajdhani,sans-serif;font-weight:700;font-size:17px;color:#003087;">YK</div>
       <div>
         <div style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:22px;color:#fff;letter-spacing:2px;">YOKOGAWA Korea</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:1px;">Project Delivery Division</div>
@@ -645,225 +641,118 @@ body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--
     </div>
     <div style="font-family:Rajdhani,sans-serif;font-weight:600;font-size:15px;color:#A8CFFF;letter-spacing:2px;margin-top:4px;">AI-TF DASHBOARD</div>
   </div>
-
-  <div id="authBox" style="
-    background:#fff; border-radius:10px; width:90%; max-width:400px;
-    box-shadow:0 24px 64px rgba(0,0,0,0.4); overflow:hidden;
-  ">
+  <div style="background:#fff;border-radius:10px;width:90%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,0.4);overflow:hidden;">
     <div style="background:linear-gradient(90deg,#003087,#0057B8);padding:18px 24px;">
-      <div style="font-family:Rajdhani,sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:1px;" id="authTitle">로그인</div>
+      <div style="font-family:Rajdhani,sans-serif;font-size:18px;font-weight:700;color:#fff;" id="authTitle">로그인</div>
       <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;">승인된 계정으로만 접근 가능합니다</div>
     </div>
     <div style="padding:24px;">
-
-      <!-- Google Sign-In -->
-      <button id="googleSignInBtn" onclick="signInWithGoogle()" style="
-        width:100%;padding:12px 16px;border:1px solid #D0D8E8;border-radius:6px;
-        background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
-        font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:600;color:#1A2340;
-        transition:all 0.18s;box-shadow:0 2px 6px rgba(0,48,135,0.08);
-      " onmouseover="this.style.boxShadow='0 4px 14px rgba(0,48,135,0.18)';this.style.background='#F4F8FF'"
-         onmouseout="this.style.boxShadow='0 2px 6px rgba(0,48,135,0.08)';this.style.background='#fff'">
+      <button onclick="signInWithGoogle()" style="width:100%;padding:12px 16px;border:1px solid #D0D8E8;border-radius:6px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;color:#1A2340;box-shadow:0 2px 6px rgba(0,48,135,0.08);">
         <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
         Google 계정으로 로그인
       </button>
-
       <div style="display:flex;align-items:center;gap:10px;margin:18px 0;">
         <div style="flex:1;height:1px;background:#E0E8F0;"></div>
         <span style="font-size:11px;color:#8A96B0;">또는 이메일로 로그인</span>
         <div style="flex:1;height:1px;background:#E0E8F0;"></div>
       </div>
-
-      <!-- Email/PW Login -->
-      <div id="emailLoginForm">
-        <div style="margin-bottom:12px;">
-          <label style="display:block;font-size:11px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px;">이메일</label>
-          <input type="email" id="authEmail" placeholder="example@yokogawa.com" style="
-            width:100%;padding:10px 13px;border:1px solid #D0D8E8;border-radius:4px;
-            font-size:14px;font-family:'Noto Sans KR',sans-serif;color:#1A2340;
-            transition:border-color 0.15s; outline:none;
-          " onfocus="this.style.borderColor='#0057B8';this.style.boxShadow='0 0 0 3px rgba(0,87,184,0.12)'"
-             onblur="this.style.borderColor='#D0D8E8';this.style.boxShadow='none'">
-        </div>
-        <div style="margin-bottom:16px;">
-          <label style="display:block;font-size:11px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px;">비밀번호</label>
-          <input type="password" id="authPassword" placeholder="••••••••" style="
-            width:100%;padding:10px 13px;border:1px solid #D0D8E8;border-radius:4px;
-            font-size:14px;font-family:'Noto Sans KR',sans-serif;color:#1A2340;
-            transition:border-color 0.15s; outline:none;
-          " onfocus="this.style.borderColor='#0057B8';this.style.boxShadow='0 0 0 3px rgba(0,87,184,0.12)'"
-             onblur="this.style.borderColor='#D0D8E8';this.style.boxShadow='none'"
-             onkeydown="if(event.key==='Enter')doEmailAuth()">
-        </div>
-        <div id="authError" style="display:none;font-size:12px;color:#C62828;background:#FFEBEE;padding:9px 12px;border-radius:4px;margin-bottom:12px;border-left:3px solid #C62828;"></div>
-        <button onclick="doEmailAuth()" style="
-          width:100%;padding:12px;background:linear-gradient(135deg,#0057B8,#003087);
-          color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;
-          cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all 0.18s;
-          box-shadow:0 3px 10px rgba(0,87,184,0.3);
-        " onmouseover="this.style.boxShadow='0 5px 18px rgba(0,87,184,0.5)'"
-           onmouseout="this.style.boxShadow='0 3px 10px rgba(0,87,184,0.3)'"
-           id="emailLoginBtn">로그인</button>
+      <div style="margin-bottom:12px;">
+        <label style="display:block;font-size:11px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px;">이메일</label>
+        <input type="email" id="authEmail" placeholder="example@yokogawa.com" style="width:100%;padding:10px 13px;border:1px solid #D0D8E8;border-radius:4px;font-size:14px;outline:none;" onkeydown="if(event.key==='Enter')doEmailAuth()">
       </div>
-      <!-- toggle: register -->
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:11px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px;">비밀번호</label>
+        <input type="password" id="authPassword" placeholder="••••••••" style="width:100%;padding:10px 13px;border:1px solid #D0D8E8;border-radius:4px;font-size:14px;outline:none;" onkeydown="if(event.key==='Enter')doEmailAuth()">
+      </div>
+      <div id="authError" style="display:none;font-size:12px;color:#C62828;background:#FFEBEE;padding:9px 12px;border-radius:4px;margin-bottom:12px;border-left:3px solid #C62828;"></div>
+      <button id="emailLoginBtn" onclick="doEmailAuth()" style="width:100%;padding:12px;background:linear-gradient(135deg,#0057B8,#003087);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;">로그인</button>
       <div style="text-align:center;margin-top:14px;font-size:12px;color:#8A96B0;">
-        계정이 없으신가요?
-        <span id="authToggle" onclick="toggleAuthMode()" style="color:#0057B8;font-weight:700;cursor:pointer;margin-left:4px;">회원가입 요청</span>
+        계정이 없으신가요? <span id="authToggle" onclick="toggleAuthMode()" style="color:#0057B8;font-weight:700;cursor:pointer;margin-left:4px;">회원가입 요청</span>
       </div>
     </div>
   </div>
-  <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.3);text-align:center;">
-    승인된 이메일 계정만 데이터 수정 가능 · 읽기 전용 접근은 별도 설정
-  </div>
+  <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.3);text-align:center;">승인된 이메일 계정만 데이터 수정 가능</div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     FIREBASE CONFIG MODAL (최초 1회 설정)
-════════════════════════════════════════════════ -->
-<div id="fbConfigModal" style="
-  display:none; position:fixed; inset:0; z-index:10000;
-  background:rgba(0,20,60,0.7); backdrop-filter:blur(4px);
-  align-items:center; justify-content:center;
-">
-  <div style="background:#fff;border-radius:10px;width:90%;max-width:560px;box-shadow:0 24px 64px rgba(0,0,0,0.4);overflow:hidden;">
-    <div style="background:linear-gradient(90deg,#003087,#0057B8);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;">
-      <div style="font-family:Rajdhani,sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:1px;">🔥 Firebase 프로젝트 설정</div>
+<!-- ══════════════════════════════════════════
+     FIREBASE CONFIG MODAL
+══════════════════════════════════════════ -->
+<div id="fbConfigModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,20,60,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:10px;width:90%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.4);">
+    <div style="background:linear-gradient(90deg,#003087,#0057B8);padding:16px 22px;">
+      <div style="font-family:Rajdhani,sans-serif;font-size:18px;font-weight:700;color:#fff;">🔥 Firebase 프로젝트 설정</div>
     </div>
     <div style="padding:22px;">
       <div style="background:#EEF4FF;border:1px solid #BBDEFB;border-radius:6px;padding:12px 14px;margin-bottom:18px;font-size:12px;color:#1565C0;line-height:1.8;">
-        <strong>설정 방법:</strong> <a href="https://console.firebase.google.com" target="_blank" style="color:#0057B8;font-weight:700;">Firebase Console</a> → 프로젝트 만들기 → 웹 앱 추가 → 아래 값 입력<br>
-        Authentication → 로그인 방법 → <strong>이메일/비밀번호</strong> 및 <strong>Google</strong> 활성화<br>
-        Firestore Database → 규칙 탭 → 아래 규칙 적용
+        <strong>설정 방법:</strong> <a href="https://console.firebase.google.com" target="_blank" style="color:#0057B8;font-weight:700;">Firebase Console</a> → 프로젝트 설정 → 일반 → 내 앱 → SDK 보기 → <strong>구성</strong> 선택 → 값 복사<br>
+        Authentication → 로그인 방법 → <strong>이메일/비밀번호</strong> 및 <strong>Google</strong> 활성화
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">API Key</label>
-          <input id="fc_apiKey" placeholder="AIzaSy..." style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
-        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Auth Domain</label>
-          <input id="fc_authDomain" placeholder="xxx.firebaseapp.com" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
-        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Project ID</label>
-          <input id="fc_projectId" placeholder="my-project-id" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
-        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Storage Bucket</label>
-          <input id="fc_storageBucket" placeholder="xxx.appspot.com" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
-        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Messaging Sender ID</label>
-          <input id="fc_messagingSenderId" placeholder="123456789" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
-        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">App ID</label>
-          <input id="fc_appId" placeholder="1:xxx:web:yyy" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">API Key</label><input id="fc_apiKey" placeholder="AIzaSy..." style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Auth Domain</label><input id="fc_authDomain" placeholder="xxx.firebaseapp.com" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Project ID</label><input id="fc_projectId" placeholder="my-project-id" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Storage Bucket</label><input id="fc_storageBucket" placeholder="xxx.appspot.com" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">Messaging Sender ID</label><input id="fc_messagingSenderId" placeholder="123456789" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+        <div><label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">App ID</label><input id="fc_appId" placeholder="1:xxx:web:yyy" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:monospace;"></div>
       </div>
       <div style="margin-top:14px;">
         <label style="display:block;font-size:10px;color:#8A96B0;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">승인된 이메일 목록 (쉼표로 구분)</label>
-        <input id="fc_allowedEmails" placeholder="admin@yokogawa.com, user@yokogawa.com" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;font-family:'Noto Sans KR',sans-serif;">
-        <div style="font-size:11px;color:#8A96B0;margin-top:4px;">⚠ 이 목록 외 계정은 로그인 후에도 데이터 수정 불가 (읽기 전용)</div>
-      </div>
-      <div style="margin-top:16px;background:#F5F5F5;border-radius:6px;padding:12px;font-size:11px;font-family:monospace;color:#333;line-height:1.6;">
-        <strong style="color:#E65100;">Firestore 보안 규칙 (복사 후 붙여넣기):</strong><br>
-        rules_version = '2';<br>
-        service cloud.firestore {<br>
-        &nbsp;&nbsp;match /databases/{database}/documents {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;match /aitf_tasks/{docId} {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read: if request.auth != null;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow write: if request.auth != null &&<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request.auth.token.email in <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;["admin@yokogawa.com"];<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
-        &nbsp;&nbsp;}<br>
-        }
+        <input id="fc_allowedEmails" placeholder="admin@yokogawa.com, user@yokogawa.com" style="width:100%;padding:8px 10px;border:1px solid #D0D8E8;border-radius:4px;font-size:12px;">
+        <div style="font-size:11px;color:#8A96B0;margin-top:4px;">⚠ 이 목록 외 계정은 읽기 전용(RO)</div>
       </div>
       <div id="fcError" style="display:none;font-size:12px;color:#C62828;background:#FFEBEE;padding:8px 12px;border-radius:4px;margin-top:12px;"></div>
     </div>
     <div style="padding:14px 22px;border-top:1px solid #E0E8F0;background:#F8FAFF;display:flex;justify-content:flex-end;gap:8px;">
-      <button onclick="useDemoMode()" style="padding:9px 18px;background:#fff;border:1px solid #D0D8E8;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;color:#4A5878;transition:all 0.15s;" onmouseover="this.style.background='#F4F8FF'" onmouseout="this.style.background='#fff'">
-        🧪 데모 모드 (로컬 저장)
-      </button>
-      <button onclick="saveFirebaseConfig()" style="padding:9px 20px;background:linear-gradient(135deg,#0057B8,#003087);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,87,184,0.3);transition:all 0.15s;">
-        🔥 Firebase 연결
-      </button>
+      <button onclick="useDemoMode()" style="padding:9px 18px;background:#fff;border:1px solid #D0D8E8;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;color:#4A5878;">🧪 데모 모드 (로컬 저장)</button>
+      <button onclick="saveFirebaseConfig()" style="padding:9px 20px;background:linear-gradient(135deg,#0057B8,#003087);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">🔥 Firebase 연결</button>
     </div>
   </div>
 </div>
 
-<!-- FIREBASE AUTH STATE INDICATOR in topbar (inject via JS) -->
-<div id="toast"></div>
-
-<!-- ══════════════════════════════════════════════
-     FIREBASE SDK
-════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     FIREBASE SDK v10
+══════════════════════════════════════════ -->
 <script type="module">
-// ── Firebase SDK (v10 modular) ──────────────────
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import {
-  getAuth, onAuthStateChanged, signInWithEmailAndPassword,
-  createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,
-  signOut
-} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import {
-  getFirestore, collection, getDocs, addDoc, setDoc, deleteDoc,
-  doc, onSnapshot, serverTimestamp, query, orderBy
-} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, setDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-// ── Constants ───────────────────────────────────
-const LS_CONFIG  = 'aitf_fb_config';
-const LS_EMAILS  = 'aitf_allowed_emails';
-const LS_DEMO    = 'aitf_demo_mode';
-const LS_LOCAL   = 'aitf_light_v1';
+const LS_CONFIG = 'aitf_fb_config';
+const LS_EMAILS = 'aitf_allowed_emails';
+const LS_DEMO   = 'aitf_demo_mode';
 const COLLECTION = 'aitf_tasks';
 
-// ── State ────────────────────────────────────────
-let fbApp=null, fbAuth=null, fbDb=null;
-let currentUser=null, allowedEmails=[], isDemoMode=false;
-let unsubscribe=null;
+let fbAuth = null, fbDb = null;
+let currentUser = null, allowedEmails = [], isDemoMode = false;
+let unsubscribe = null;
 
-// Expose to global scope for onclick handlers
-window._fb = {
-  signInWithGoogle: null,
-  doEmailAuth: null,
-  toggleAuthMode: null,
-  saveFirebaseConfig: null,
-  useDemoMode: null,
-  saveItem: null,
-  deleteItem: null,
-  signOutUser: null
-};
+// ── 설정 불러오기 ──────────────────────────
+function loadConfig() {
+  try { const v = localStorage.getItem(LS_CONFIG); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+}
 
-// ── Existing app globals (declared in original script) ──
-// items, activePhase, activeCat, renderAll, etc. are in original script
-// We override loadData / saveData
-
-// ── Bootstrap ────────────────────────────────────
+// ── 초기화 ─────────────────────────────────
 (async function init() {
   const cfg = loadConfig();
-  if (!cfg && !localStorage.getItem(LS_DEMO)) {
-    showConfigModal();
-    return;
-  }
   if (localStorage.getItem(LS_DEMO) === '1') {
-    isDemoMode = true;
-    hideFbModals();
-    startDemoMode();
-    return;
+    isDemoMode = true; startDemoMode(); return;
   }
+  if (!cfg) { showConfigModal(); return; }
   await connectFirebase(cfg);
 })();
 
-// ── Config persistence ───────────────────────────
-function loadConfig() {
-  try { const v=localStorage.getItem(LS_CONFIG); return v?JSON.parse(v):null; } catch(e){ return null; }
-}
-function loadConfig(){ try{const v=localStorage.getItem(LS_CONFIG);return v?JSON.parse(v):null;}catch(e){return null;} }
-
+// ── Firebase 설정 저장 (UI 입력값 사용) ────
 window.saveFirebaseConfig = async function() {
   const cfg = {
-    apiKey:            AIzaSyCAmXqwYPH0V8a77AmByMtcTG4okq-sNA8,
-    authDomain:        yko-aift-dashboard.firebaseapp.com,
-    projectId:         yko-aift-dashboard,
-    storageBucket:     yko-aift-dashboard.firebasestorage.app,
-    messagingSenderId: 325581434823,
-    appId:             1:325581434823:web:a4b1c883da75e0538bf3e2,
-measurementId: G-Y1Q3F0C62E
+    apiKey:            document.getElementById('fc_apiKey').value.trim(),
+    authDomain:        document.getElementById('fc_authDomain').value.trim(),
+    projectId:         document.getElementById('fc_projectId').value.trim(),
+    storageBucket:     document.getElementById('fc_storageBucket').value.trim(),
+    messagingSenderId: document.getElementById('fc_messagingSenderId').value.trim(),
+    appId:             document.getElementById('fc_appId').value.trim(),
   };
-  const emails = document.getElementById('fc_allowedEmails').value.split(',').map(s=>s.trim()).filter(Boolean);
-  if (!cfg.apiKey || !cfg.projectId) {
-    showFcError('API Key와 Project ID는 필수입니다.'); return;
-  }
+  if (!cfg.apiKey || !cfg.projectId) { showFcError('API Key와 Project ID는 필수입니다.'); return; }
+  const emails = document.getElementById('fc_allowedEmails').value.split(',').map(s => s.trim()).filter(Boolean);
   localStorage.setItem(LS_CONFIG, JSON.stringify(cfg));
   localStorage.setItem(LS_EMAILS, JSON.stringify(emails));
   localStorage.removeItem(LS_DEMO);
@@ -874,51 +763,41 @@ measurementId: G-Y1Q3F0C62E
 window.useDemoMode = function() {
   localStorage.setItem(LS_DEMO, '1');
   document.getElementById('fbConfigModal').style.display = 'none';
-  isDemoMode = true;
-  startDemoMode();
+  isDemoMode = true; startDemoMode();
 };
 
-// ── Firebase connect ─────────────────────────────
+// ── Firebase 연결 ──────────────────────────
 async function connectFirebase(cfg) {
   try {
-    fbApp  = initializeApp(cfg);
-    fbAuth = getAuth(fbApp);
-    fbDb   = getFirestore(fbApp);
-    allowedEmails = JSON.parse(localStorage.getItem(LS_EMAILS)||'[]');
+    const app = initializeApp(cfg);
+    fbAuth = getAuth(app);
+    fbDb   = getFirestore(app);
+    allowedEmails = JSON.parse(localStorage.getItem(LS_EMAILS) || '[]');
     onAuthStateChanged(fbAuth, onAuthChange);
   } catch(e) {
-    console.error('Firebase init error:', e);
-    showFcError('Firebase 초기화 실패: '+e.message);
+    showFcError('Firebase 초기화 실패: ' + e.message);
     showConfigModal();
   }
 }
 
-// ── Auth state handler ───────────────────────────
+// ── 인증 상태 변경 ─────────────────────────
 function onAuthChange(user) {
   currentUser = user;
-  if (!user) {
-    showAuthOverlay();
-    return;
-  }
+  if (!user) { showAuthOverlay(); return; }
   hideFbModals();
   updateUserBadge(user);
   startRealtimeSync();
 }
 
-// ── Google Sign-In ───────────────────────────────
+// ── Google 로그인 ──────────────────────────
 window.signInWithGoogle = async function() {
   if (!fbAuth) return;
-  try {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(fbAuth, provider);
-  } catch(e) {
-    showAuthError(getFriendlyError(e.code));
-  }
+  try { await signInWithPopup(fbAuth, new GoogleAuthProvider()); }
+  catch(e) { showAuthError(getFriendlyError(e.code)); }
 };
 
-// ── Email Auth ───────────────────────────────────
-let authMode = 'login'; // or 'register'
-
+// ── 이메일 로그인 ──────────────────────────
+let authMode = 'login';
 window.doEmailAuth = async function() {
   if (!fbAuth) return;
   const email = document.getElementById('authEmail').value.trim();
@@ -927,227 +806,170 @@ window.doEmailAuth = async function() {
   const btn = document.getElementById('emailLoginBtn');
   btn.textContent = '처리 중...'; btn.disabled = true;
   try {
-    if (authMode === 'login') {
-      await signInWithEmailAndPassword(fbAuth, email, pw);
-    } else {
-      await createUserWithEmailAndPassword(fbAuth, email, pw);
-    }
+    if (authMode === 'login') await signInWithEmailAndPassword(fbAuth, email, pw);
+    else await createUserWithEmailAndPassword(fbAuth, email, pw);
     document.getElementById('authError').style.display = 'none';
-  } catch(e) {
-    showAuthError(getFriendlyError(e.code));
-  } finally {
-    btn.textContent = authMode==='login'?'로그인':'회원가입';
-    btn.disabled = false;
-  }
+  } catch(e) { showAuthError(getFriendlyError(e.code)); }
+  finally { btn.textContent = authMode === 'login' ? '로그인' : '회원가입'; btn.disabled = false; }
 };
 
 window.toggleAuthMode = function() {
   authMode = authMode === 'login' ? 'register' : 'login';
-  document.getElementById('authTitle').textContent = authMode==='login'?'로그인':'회원가입';
-  document.getElementById('emailLoginBtn').textContent = authMode==='login'?'로그인':'회원가입';
-  document.getElementById('authToggle').textContent = authMode==='login'?'회원가입 요청':'로그인으로 돌아가기';
+  document.getElementById('authTitle').textContent = authMode === 'login' ? '로그인' : '회원가입';
+  document.getElementById('emailLoginBtn').textContent = authMode === 'login' ? '로그인' : '회원가입';
+  document.getElementById('authToggle').textContent = authMode === 'login' ? '회원가입 요청' : '로그인으로 돌아가기';
 };
 
-// ── Sign Out ─────────────────────────────────────
 window.signOutUser = async function() {
-  if (unsubscribe) { unsubscribe(); unsubscribe=null; }
+  if (unsubscribe) { unsubscribe(); unsubscribe = null; }
   await signOut(fbAuth);
 };
 
-// ── Realtime sync ─────────────────────────────────
+// ── 실시간 동기화 ──────────────────────────
 function startRealtimeSync() {
   if (!fbDb) return;
   if (unsubscribe) unsubscribe();
-  const q = query(collection(fbDb, COLLECTION), orderBy('id','asc'));
+  const q = query(collection(fbDb, COLLECTION), orderBy('id', 'asc'));
   unsubscribe = onSnapshot(q, snap => {
     const remote = snap.docs.map(d => d.data());
     if (remote.length > 0) {
       window.items = remote;
     } else {
-      // First time: seed from DEFAULT_DATA
-      seedDefaultData();
-      return;
+      seedDefaultData(); return;
     }
     window.renderAll && window.renderAll();
-    updateStatusBar();
+    const el = document.getElementById('lastUpdate');
+    if (el) el.textContent = new Date().toISOString().split('T')[0];
   }, err => {
-    console.error('Firestore error:', err);
-    showToast('⚠ Firestore 연결 오류 — 로컬 모드로 전환', 'warn');
+    console.error('Firestore 오류:', err);
+    window.showToast('⚠ Firestore 연결 오류 — 로컬 모드로 전환', 'warn');
     startDemoMode();
   });
 }
 
 async function seedDefaultData() {
-  if (!fbDb) return;
-  const DEFAULT = window._DEFAULT_DATA || [];
-  for (const it of DEFAULT) {
-    await setDoc(doc(fbDb, COLLECTION, String(it.id)), {
-      ...it,
-      updatedAt: serverTimestamp()
-    });
+  if (!fbDb || !window._DEFAULT_DATA) return;
+  for (const it of window._DEFAULT_DATA) {
+    await setDoc(doc(fbDb, COLLECTION, String(it.id)), { ...it, updatedAt: serverTimestamp() });
   }
 }
 
-// ── Override saveData (called by original saveItem/deleteItem) ──
+// ── Firebase 저장/삭제 ─────────────────────
 window._saveItemToFirebase = async function(data) {
-  if (!canWrite()) { showToast('⛔ 쓰기 권한 없음 — 관리자에게 문의', 'error'); return false; }
+  if (!canWrite()) { window.showToast('⛔ 쓰기 권한 없음 — 관리자에게 문의', 'error'); return false; }
   try {
-    await setDoc(doc(fbDb, COLLECTION, String(data.id)), {
-      ...data,
-      updatedAt: serverTimestamp()
-    });
+    await setDoc(doc(fbDb, COLLECTION, String(data.id)), { ...data, updatedAt: serverTimestamp() });
     return true;
-  } catch(e) {
-    showToast('⚠ 저장 실패: '+e.message, 'error'); return false;
-  }
+  } catch(e) { window.showToast('⚠ 저장 실패: ' + e.message, 'error'); return false; }
 };
 
 window._deleteItemFromFirebase = async function(id) {
-  if (!canWrite()) { showToast('⛔ 쓰기 권한 없음', 'error'); return false; }
-  try {
-    await deleteDoc(doc(fbDb, COLLECTION, String(id)));
-    return true;
-  } catch(e) {
-    showToast('⚠ 삭제 실패: '+e.message, 'error'); return false;
-  }
+  if (!canWrite()) { window.showToast('⛔ 쓰기 권한 없음', 'error'); return false; }
+  try { await deleteDoc(doc(fbDb, COLLECTION, String(id))); return true; }
+  catch(e) { window.showToast('⚠ 삭제 실패: ' + e.message, 'error'); return false; }
 };
 
-// ── Permission check ──────────────────────────────
 function canWrite() {
   if (!currentUser) return false;
   if (isDemoMode) return true;
-  if (allowedEmails.length === 0) return true; // no restriction set
+  if (allowedEmails.length === 0) return true;
   return allowedEmails.includes(currentUser.email);
 }
 
-// ── Demo mode (localStorage fallback) ────────────
+// ── 데모 모드 ──────────────────────────────
 function startDemoMode() {
-  isDemoMode = true;
-  hideFbModals();
-  updateUserBadge({ email:'DEMO MODE', displayName:'로컬 저장' });
+  isDemoMode = true; hideFbModals();
+  updateUserBadge({ email: 'DEMO MODE', displayName: '로컬 저장' });
   window.loadData && window.loadData();
   window.renderAll && window.renderAll();
-  showToast('🧪 데모 모드 — 로컬 저장소 사용 중');
+  window.showToast('🧪 데모 모드 — 로컬 저장소 사용 중');
 }
 
-// ── UI helpers ────────────────────────────────────
-function showAuthOverlay() {
-  const o = document.getElementById('authOverlay');
-  o.style.display = 'flex';
-}
+// ── UI 헬퍼 ────────────────────────────────
+function showAuthOverlay() { document.getElementById('authOverlay').style.display = 'flex'; }
 function hideFbModals() {
   document.getElementById('authOverlay').style.display = 'none';
   document.getElementById('fbConfigModal').style.display = 'none';
 }
-function showConfigModal() {
-  document.getElementById('fbConfigModal').style.display = 'flex';
-}
-function showAuthError(msg) {
-  const el = document.getElementById('authError');
-  el.textContent = msg; el.style.display = 'block';
-}
-function showFcError(msg) {
-  const el = document.getElementById('fcError');
-  el.textContent = msg; el.style.display = 'block';
-}
+function showConfigModal() { document.getElementById('fbConfigModal').style.display = 'flex'; }
+function showAuthError(msg) { const el = document.getElementById('authError'); el.textContent = msg; el.style.display = 'block'; }
+function showFcError(msg) { const el = document.getElementById('fcError'); el.textContent = msg; el.style.display = 'block'; }
 
 function updateUserBadge(user) {
   const badge = document.querySelector('.user-badge');
   if (!badge) return;
   const label = user.displayName || user.email || '로그인됨';
-  const writable = canWrite();
-  badge.innerHTML = `
-    <i class="fa-solid fa-circle-user"></i>
+  const rw = canWrite();
+  badge.innerHTML = `<i class="fa-solid fa-circle-user"></i>
     <span style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${user.email||''}">${label}</span>
-    ${writable ? '<span style="background:#00A651;color:#fff;font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;letter-spacing:0.5px">RW</span>' : '<span style="background:#E67C00;color:#fff;font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;letter-spacing:0.5px">RO</span>'}
-    <span title="로그아웃" onclick="signOutUser()" style="cursor:pointer;opacity:0.65;font-size:12px;margin-left:2px;transition:opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.65'">
-      <i class="fa-solid fa-arrow-right-from-bracket"></i>
-    </span>`;
-  // Show/hide Firebase indicator
-  updateStatusBarFbIndicator(true);
-}
-
-function updateStatusBarFbIndicator(connected) {
+    <span style="background:${rw?'#00A651':'#E67C00'};color:#fff;font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;">${rw?'RW':'RO'}</span>
+    <span onclick="signOutUser()" title="로그아웃" style="cursor:pointer;opacity:0.65;font-size:12px;margin-left:2px;"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>`;
+  // 상태바 Firebase 표시
   let ind = document.getElementById('fbStatusIndicator');
   if (!ind) {
     const sb = document.querySelector('.statusbar');
-    if (!sb) return;
-    ind = document.createElement('div');
-    ind.id = 'fbStatusIndicator';
-    ind.className = 'status-item';
-    sb.insertBefore(ind, sb.querySelector('.s-right'));
-    const sep = document.createElement('div'); sep.className = 's-sep';
-    sb.insertBefore(sep, ind);
+    if (sb) {
+      const sep = document.createElement('div'); sep.className = 's-sep';
+      ind = document.createElement('div'); ind.id = 'fbStatusIndicator'; ind.className = 'status-item';
+      sb.insertBefore(sep, sb.querySelector('.s-right'));
+      sb.insertBefore(ind, sb.querySelector('.s-right'));
+    }
   }
-  ind.innerHTML = connected && !isDemoMode
-    ? `<div class="s-led green" style="background:#FF6D00;box-shadow:0 0 5px #FF6D00"></div><span class="s-text">🔥 FIREBASE : LIVE</span>`
-    : `<div class="s-led warn"></div><span class="s-text">💾 LOCAL MODE</span>`;
-}
-
-function updateStatusBar() {
-  const el = document.getElementById('lastUpdate');
-  if (el) el.textContent = new Date().toISOString().split('T')[0];
+  if (ind) ind.innerHTML = isDemoMode
+    ? `<div class="s-led warn"></div><span class="s-text">💾 LOCAL MODE</span>`
+    : `<div class="s-led green" style="background:#FF6D00;box-shadow:0 0 5px #FF6D00"></div><span class="s-text">🔥 FIREBASE : LIVE</span>`;
 }
 
 function getFriendlyError(code) {
-  const map = {
-    'auth/user-not-found':    '등록되지 않은 이메일입니다.',
-    'auth/wrong-password':    '비밀번호가 올바르지 않습니다.',
-    'auth/invalid-email':     '이메일 형식이 올바르지 않습니다.',
+  return ({
+    'auth/user-not-found':       '등록되지 않은 이메일입니다.',
+    'auth/wrong-password':       '비밀번호가 올바르지 않습니다.',
+    'auth/invalid-email':        '이메일 형식이 올바르지 않습니다.',
     'auth/email-already-in-use': '이미 사용 중인 이메일입니다.',
-    'auth/weak-password':     '비밀번호는 6자 이상이어야 합니다.',
+    'auth/weak-password':        '비밀번호는 6자 이상이어야 합니다.',
     'auth/popup-closed-by-user': 'Google 로그인이 취소되었습니다.',
-    'auth/network-request-failed': '네트워크 오류가 발생했습니다.',
-    'auth/invalid-credential': '이메일 또는 비밀번호가 올바르지 않습니다.',
-  };
-  return map[code] || '오류가 발생했습니다. ('+code+')';
+    'auth/network-request-failed':'네트워크 오류가 발생했습니다.',
+    'auth/invalid-credential':   '이메일 또는 비밀번호가 올바르지 않습니다.',
+  })[code] || '오류가 발생했습니다. (' + code + ')';
 }
 
-// ── Toast (override original) ─────────────────────
-window.showToast = function(msg, type='success') {
+window.showToast = function(msg, type = 'success') {
   const t = document.getElementById('toast');
   if (!t) return;
-  const bg = type==='error'?'#C62828': type==='warn'?'#E67C00':'#00A651';
-  t.style.background = bg;
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3000);
+  t.style.background = type==='error'?'#C62828': type==='warn'?'#E67C00':'#00A651';
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 };
 
-// ── Expose config button in topbar ───────────────
+// 🔥 버튼을 상단바에 추가
 window.addEventListener('DOMContentLoaded', () => {
   const right = document.querySelector('.topbar-right');
   if (right) {
-    const cfgBtn = document.createElement('button');
-    cfgBtn.id = 'fbConfigBtn';
-    cfgBtn.title = 'Firebase 설정';
-    cfgBtn.innerHTML = '<i class="fa-solid fa-fire" style="color:#FF6D00"></i>';
-    cfgBtn.style.cssText = 'background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:6px 10px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.15s;';
-    cfgBtn.addEventListener('mouseenter', ()=>cfgBtn.style.background='rgba(255,109,0,0.3)');
-    cfgBtn.addEventListener('mouseleave', ()=>cfgBtn.style.background='rgba(255,255,255,0.1)');
-    cfgBtn.addEventListener('click', ()=>{ document.getElementById('fbConfigModal').style.display='flex'; });
-    right.insertBefore(cfgBtn, right.firstChild);
+    const btn = document.createElement('button');
+    btn.title = 'Firebase 설정 변경';
+    btn.innerHTML = '<i class="fa-solid fa-fire" style="color:#FF6D00"></i>';
+    btn.style.cssText = 'background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:6px 10px;border-radius:4px;cursor:pointer;font-size:13px;';
+    btn.addEventListener('click', () => { document.getElementById('fbConfigModal').style.display = 'flex'; });
+    right.insertBefore(btn, right.firstChild);
   }
 });
-
 </script>
 
+<!-- ══════════════════════════════════════════
+     APP SCRIPT
+══════════════════════════════════════════ -->
 <script>
-// ══════════════════════════════════════════════
-// ORIGINAL APP SCRIPT (기존 로직 그대로 유지)
-// saveData / loadData 만 Firebase 연동으로 override
-// ══════════════════════════════════════════════
-const STORAGE_KEY='aitf_light_v1';
-const DEFAULT_DATA=[
+const STORAGE_KEY = 'aitf_light_v1';
+const DEFAULT_DATA = [
   {id:1,title:"Flow Chart 자동화",phase:"QG-P3",category:"Engineering",status:1.0,desc:"Control narrative 분석을 통해 로직 Flow 및 시퀀스 차트를 자동 생성합니다.",tasks:["PDF 파싱 로직 안정화","Mermaid 차트 변환 모듈 개발"],tools:["Python","OpenAI API","Mermaid"],result:"생성형 AI 활용 Control narrative 기반 Flow chart를 .SVG → Visio 수정 가능 구조로 작성."},
-  {id:2,title:"IO List 검증",phase:"QG-P3",category:"Engineering",status:0.5,desc:"태그 중복, 오타, 설정 오류를 AI가 실시간으로 검증합니다.",tasks:["중복 데이터 필터링","프롬프트 튜닝"],tools:["Copilot","Excel VBA"],result:"Copilot Agent 활용 IO list review Agent 검토. M365 Copilot license 업그레이드 필요.",priority:"Medium",owner:"유성기, 한준석"},
+  {id:2,title:"IO List 검증",phase:"QG-P3",category:"Engineering",status:0.5,desc:"태그 중복, 오타, 설정 오류를 AI가 실시간으로 검증합니다.",tasks:["중복 데이터 필터링","프롬프트 튜닝"],tools:["Copilot","Excel VBA"],result:"Copilot Agent 활용 IO list review Agent 검토.",priority:"Medium",owner:"유성기, 한준석"},
   {id:3,title:"Spec Review",phase:"QG-P1",category:"Analysis",status:1.0,desc:"다양한 type의 문서(비정형 data) URS/GS 문서를 검토, 계약서 / Spec 문서 등.",tasks:["NotebookLM 학습 최적화","근거 페이지 매핑"],tools:["NotebookLM","MS365 Copilot"],result:"NotebookLM or M365 Copilot으로 RAG 기반 비정형 data 문서화 가능."},
-  {id:4,title:"AI Video 제작",phase:"QG-P0",category:"Media",status:1.0,desc:"프로젝트 홍보 및 교육용 쇼츠 영상을 AI로 생성합니다.",tasks:["스크립트 자동 생성","AI 성우 나레이션 결합"],tools:["HeyGen","Runway"],result:"AI 기능 Test 완료. 항목 증가 시 홍보 shorts 영상 제작 검토 예정."},
+  {id:4,title:"AI Video 제작",phase:"QG-P0",category:"Media",status:1.0,desc:"프로젝트 홍보 및 교육용 쇼츠 영상을 AI로 생성합니다.",tasks:["스크립트 자동 생성","AI 성우 나레이션 결합"],tools:["HeyGen","Runway"],result:"AI 기능 Test 완료."},
   {id:5,title:"Personal Agent",phase:"QG-P0",category:"Agent",status:0.5,desc:"아웃룩-SQL 연동을 통해 메일 분석 및 업무 자동화를 수행합니다.",tasks:["SQL 데이터베이스 연동 완료","VS Code 확장 프로그램 배포"],tools:["VS Code","Python","SQL"],result:"AI 코딩 활용 mail 요약 agent 개발 진행 중.",priority:"Low"},
-  {id:6,title:"Reverse Eng.",phase:"QG-P3",category:"Engineering",status:0.5,desc:"기존 시퀀스 데이터를 분석하여 엔지니어링 데이터를 역추출합니다.",tasks:["Centum 시퀀스 파싱","데이터 매핑 자동화"],tools:["Python","Regular Expression"],result:"DB → Flow chart 자동 Visio 출력. Step / Non-step 시퀀스 모두 지원.",priority:"High",owner:"김선희, 박태운"},
-  {id:7,title:"PD-Bot (Knowledge RAG)",phase:"QG-P0",category:"IT",status:1.0,desc:"사내 기술 DB를 학습시킨 챗봇을 구축하여 지식을 자산화합니다.",tasks:["사내 문서 임베딩","카카오톡 채널 연동"],tools:["LangChain","Pinecone"],result:"PD-Bot Production 운영 중. 지속적 update 및 관리 필요.",owner:"엄선범, 김은화",link:"https://chakwanghoon.github.io/YKO_PDD_AI-TF-dashboard/"},
-  {id:8,title:"Prompt Sharing",phase:"QG-P0",category:"Culture",status:0.4,desc:"직무별 최적화된 프롬프트를 공유하고 표준화합니다.",tasks:["프롬프트 라이브러리 구축","사내 워크샵 개최"],tools:["NotebookLM","MS365 Copilot"],result:"계약서 검토 Prompt 작성 완료. Spec Review(#3) 항목과 연계 운영."},
-  {id:9,title:"PDF Markup",phase:"QG-P4",category:"Engineering",status:1.0,desc:"SelfDocument PDF 도면의 변경 사항을 자동 Mark-up합니다.",tasks:["좌표 기반 마킹 정확도 개선","배치 프로세스 최적화"],tools:["Python (PyMuPDF)"],result:"P&ID에서 Tag 기준 Loop mark-up 출력 → Yget 활용 고려 중.",owner:"유성기"},
+  {id:6,title:"Reverse Eng.",phase:"QG-P3",category:"Engineering",status:0.5,desc:"기존 시퀀스 데이터를 분석하여 엔지니어링 데이터를 역추출합니다.",tasks:["Centum 시퀀스 파싱","데이터 매핑 자동화"],tools:["Python","Regular Expression"],result:"DB → Flow chart 자동 Visio 출력.",priority:"High",owner:"김선희, 박태운"},
+  {id:7,title:"PD-Bot (Knowledge RAG)",phase:"QG-P0",category:"IT",status:1.0,desc:"사내 기술 DB를 학습시킨 챗봇을 구축하여 지식을 자산화합니다.",tasks:["사내 문서 임베딩","카카오톡 채널 연동"],tools:["LangChain","Pinecone"],result:"PD-Bot Production 운영 중.",owner:"엄선범, 김은화",link:"https://chakwanghoon.github.io/YKO_PDD_AI-TF-dashboard/"},
+  {id:8,title:"Prompt Sharing",phase:"QG-P0",category:"Culture",status:0.4,desc:"직무별 최적화된 프롬프트를 공유하고 표준화합니다.",tasks:["프롬프트 라이브러리 구축","사내 워크샵 개최"],tools:["NotebookLM","MS365 Copilot"],result:"계약서 검토 Prompt 작성 완료."},
+  {id:9,title:"PDF Markup",phase:"QG-P4",category:"Engineering",status:1.0,desc:"SelfDocument PDF 도면의 변경 사항을 자동 Mark-up합니다.",tasks:["좌표 기반 마킹 정확도 개선","배치 프로세스 최적화"],tools:["Python (PyMuPDF)"],result:"P&ID에서 Tag 기준 Loop mark-up 출력.",owner:"유성기"},
   {id:10,title:"PLC Ladder → DCS Logic Diagram",phase:"QG-P3",category:"Engineering",status:0.2,desc:"PLC Revamping PJT 활용 목적으로 PLC Ladder 분석·DCS Logic Diagram으로 Converting.",tasks:["PLC 시퀀스 파싱 로직 개발","DCS 변환 규칙 매핑"],tools:["Gemini Notebook","CANVAS"],result:"진행 중"},
   {id:11,title:"CVP-PID Simulator",phase:"QG-P8",category:"IT",status:0.3,desc:"Centum VP PID 알고리즘 및 P,I,D 각 설명에 따른 예측 세부 세팅을 하는 Tool.",tasks:["PID 알고리즘 구현","UI 개발"],tools:[],result:"진행 중",owner:"한준석"},
   {id:12,title:"P&ID Typical Generator",phase:"QG-P3",category:"Engineering",status:0.0,desc:"P&ID에서 DCS TAG를 추출하고 PVI,PID,SIO,MC Typical Loop를 IO List에 DB화하는 Tool.",tasks:["TAG 추출 로직 개발","DB 구조 설계"],tools:[],result:"미시작",owner:"지재환, 고호섭"}
@@ -1159,36 +981,23 @@ const PHASE_COL={'QG-P0':'#00838F','QG-P1':'#0057B8','QG-P2':'#00A651','QG-P3':'
 const PHASE_BG={'QG-P0':'#E0F7FA','QG-P1':'#E3F0FF','QG-P2':'#E8F5E9','QG-P3':'#FFF3E0','QG-P4':'#F3E5F5','QG-P5':'#FFEBEE','QG-P6':'#E0F2F1','QG-P7':'#E3F0FF','QG-P8':'#ECEFF1'};
 const CAT_BG={Engineering:'#E3F0FF',Analysis:'#E0F7FA',Media:'#F3E5F5',Agent:'#E8F5E9',IT:'#E1F5FE',Culture:'#F1F8E9'};
 
-window.items=[]; let activePhase='all',activeCat='all';
+window.items = []; let activePhase='all', activeCat='all';
 
-// loadData: local fallback (Firebase overrides via onSnapshot)
-window.loadData = function(){
-  try{const s=localStorage.getItem(STORAGE_KEY);window.items=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_DATA));}
-  catch(e){window.items=JSON.parse(JSON.stringify(DEFAULT_DATA));}
+window.loadData = function() {
+  try { const s=localStorage.getItem(STORAGE_KEY); window.items=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_DATA)); }
+  catch(e) { window.items=JSON.parse(JSON.stringify(DEFAULT_DATA)); }
+};
+window.saveData = function() {
+  if (window.isDemoMode || !window.fbDb) localStorage.setItem(STORAGE_KEY, JSON.stringify(window.items));
 };
 
-// saveData: routes to Firebase or localStorage
-window.saveData = function(){
-  if(window.isDemoMode || !window.fbDb){
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(window.items));
-  }
-  // Firebase save happens in saveItem/deleteItem via _saveItemToFirebase
-};
-
-function getPriorityBadge(p){
-  const map={
-    'High':'<span class="priority-badge p-high"><i class="fa-solid fa-circle-exclamation" style="font-size:10px"></i>High</span>',
-    'Medium':'<span class="priority-badge p-mid"><i class="fa-solid fa-circle-minus" style="font-size:10px"></i>Medium</span>',
-    'Low':'<span class="priority-badge p-low"><i class="fa-solid fa-circle-check" style="font-size:10px"></i>Low</span>',
-  };
-  return map[p]||'<span class="priority-badge p-none"><i class="fa-regular fa-circle" style="font-size:10px"></i>미지정</span>';
-}
-function getSI(s){if(s>=1)return'si-done';if(s>=0.5)return'si-prog';if(s>0)return'si-part';return'si-none';}
-function getSTxt(s){if(s>=1)return'완료';if(s>=0.5)return'진행중';if(s>0)return'일부 시작';return'미시작';}
-function getPC(s){if(s>=1)return'#00A651';if(s>=0.5)return'#0057B8';if(s>0)return'#E67C00';return'#9EAABF';}
+function getPriorityBadge(p){const map={'High':'<span class="priority-badge p-high"><i class="fa-solid fa-circle-exclamation" style="font-size:10px"></i>High</span>','Medium':'<span class="priority-badge p-mid"><i class="fa-solid fa-circle-minus" style="font-size:10px"></i>Medium</span>','Low':'<span class="priority-badge p-low"><i class="fa-solid fa-circle-check" style="font-size:10px"></i>Low</span>'};return map[p]||'<span class="priority-badge p-none"><i class="fa-regular fa-circle" style="font-size:10px"></i>미지정</span>';}
+function getSI(s){return s>=1?'si-done':s>=0.5?'si-prog':s>0?'si-part':'si-none';}
+function getSTxt(s){return s>=1?'완료':s>=0.5?'진행중':s>0?'일부 시작':'미시작';}
+function getPC(s){return s>=1?'#00A651':s>=0.5?'#0057B8':s>0?'#E67C00':'#9EAABF';}
 
 function renderCards(){
-  const grid=document.getElementById('cardGrid');grid.innerHTML='';
+  const grid=document.getElementById('cardGrid'); grid.innerHTML='';
   const filtered=window.items.filter(it=>(activePhase==='all'||it.phase===activePhase)&&(activeCat==='all'||it.category===activeCat));
   if(!filtered.length){grid.innerHTML='<div style="font-size:14px;color:var(--text-dim);padding:24px">해당 조건의 항목이 없습니다.</div>';return;}
   filtered.forEach(it=>{
@@ -1196,60 +1005,20 @@ function renderCards(){
     const tasks=Array.isArray(it.tasks)?it.tasks:[],tools=Array.isArray(it.tools)?it.tools:[];
     const pCol=PHASE_COL[it.phase]||'#0057B8',pBg=PHASE_BG[it.phase]||'#E3F0FF';
     const cCol=CAT_COL[it.category]||'#1565C0',cBg=CAT_BG[it.category]||'#E3F0FF';
-    const div=document.createElement('div');div.className='item-card';
-    div.innerHTML=`
-      <div class="card-titlebar">
-        <div class="card-titlebar-left">
-          <span class="card-num">#${String(it.id).padStart(2,'0')}</span>
-          <span class="card-name ${it.link?'has-link':''}" ${it.link?`onclick="window.open('${it.link}','_blank')" title="클릭하여 링크 열기"`:''}>${it.title}${it.link?' <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;margin-left:4px"></i>':''}</span>
-        </div>
-        <span class="card-edit-btn" onclick="event.stopPropagation();openEditModal(${it.id})"><i class="fa-solid fa-pen"></i> 편집</span>
-      </div>
-      <div class="card-body">
-        <div class="card-badges">
-          <span class="hmi-badge" style="color:${pCol};background:${pBg}">${it.phase}</span>
-          <span class="hmi-badge" style="color:${cCol};background:${cBg}">${it.category}</span>
-        </div>
-        <div class="card-info-row">
-          ${getPriorityBadge(it.priority)}
-          ${it.owner?`<span class="owner-badge"><i class="fa-solid fa-user" style="font-size:9px"></i>${it.owner}</span>`:''}
-        </div>
-        <div class="card-desc">${it.desc}</div>
-        <div class="status-row">
-          <div class="s-indicator ${getSI(it.status)}"></div>
-          <span class="s-label" style="color:${col}">${getSTxt(it.status)}</span>
-        </div>
-        <div class="prog-wrap">
-          <div class="prog-header"><span>PROGRESS</span><strong style="color:${col}">${pct}%</strong></div>
-          <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${col}"></div></div>
-        </div>
-        <div class="tool-row">${tools.map(t=>`<span class="tool-chip">${t}</span>`).join('')}</div>
-      </div>
-      <div class="toggle-row" onclick="toggleDetail(this)"><i class="fa-solid fa-chevron-right"></i> 상세 보기</div>
-      <div class="detail-body">
-        ${tasks.length?`<div class="detail-task-title">TASKS</div>${tasks.map(t=>`<div class="detail-task-item">${t}</div>`).join('')}`:''}
-        ${it.result?`<div class="result-box">${it.result}</div>`:''}
-      </div>`;
+    const div=document.createElement('div'); div.className='item-card';
+    div.innerHTML=`<div class="card-titlebar"><div class="card-titlebar-left"><span class="card-num">#${String(it.id).padStart(2,'0')}</span><span class="card-name ${it.link?'has-link':''}" ${it.link?`onclick="window.open('${it.link}','_blank')" title="클릭하여 링크 열기"`:''}>${it.title}${it.link?' <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;margin-left:4px"></i>':''}</span></div><span class="card-edit-btn" onclick="event.stopPropagation();openEditModal(${it.id})"><i class="fa-solid fa-pen"></i> 편집</span></div><div class="card-body"><div class="card-badges"><span class="hmi-badge" style="color:${pCol};background:${pBg}">${it.phase}</span><span class="hmi-badge" style="color:${cCol};background:${cBg}">${it.category}</span></div><div class="card-info-row">${getPriorityBadge(it.priority)}${it.owner?`<span class="owner-badge"><i class="fa-solid fa-user" style="font-size:9px"></i>${it.owner}</span>`:''}</div><div class="card-desc">${it.desc}</div><div class="status-row"><div class="s-indicator ${getSI(it.status)}"></div><span class="s-label" style="color:${col}">${getSTxt(it.status)}</span></div><div class="prog-wrap"><div class="prog-header"><span>PROGRESS</span><strong style="color:${col}">${pct}%</strong></div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="tool-row">${tools.map(t=>`<span class="tool-chip">${t}</span>`).join('')}</div></div><div class="toggle-row" onclick="toggleDetail(this)"><i class="fa-solid fa-chevron-right"></i> 상세 보기</div><div class="detail-body">${tasks.length?`<div class="detail-task-title">TASKS</div>${tasks.map(t=>`<div class="detail-task-item">${t}</div>`).join('')}`:''}${it.result?`<div class="result-box">${it.result}</div>`:''}</div>`;
     grid.appendChild(div);
   });
 }
 function toggleDetail(el){const b=el.nextElementSibling,open=b.classList.toggle('open');el.innerHTML=open?'<i class="fa-solid fa-chevron-down"></i> 접기':'<i class="fa-solid fa-chevron-right"></i> 상세 보기';}
 function renderKPI(){
   const total=window.items.length,done=window.items.filter(i=>i.status>=1).length,prog=window.items.filter(i=>i.status>=0.5&&i.status<1).length,part=window.items.filter(i=>i.status>0&&i.status<0.5).length,avg=window.items.length?Math.round(window.items.reduce((s,i)=>s+i.status,0)/window.items.length*100):0;
-  document.getElementById('kpiRow').innerHTML=`
-    <div class="kpi-box k-total"><div class="kpi-lbl">전체 항목</div><div class="kpi-val">${total}</div><div class="kpi-sub">AITF Tasks</div></div>
-    <div class="kpi-box k-done"><div class="kpi-lbl">완료</div><div class="kpi-val">${done}</div><div class="kpi-sub">100% 완료</div></div>
-    <div class="kpi-box k-prog"><div class="kpi-lbl">진행중</div><div class="kpi-val">${prog}</div><div class="kpi-sub">50 ~ 99%</div></div>
-    <div class="kpi-box k-part"><div class="kpi-lbl">일부 시작</div><div class="kpi-val">${part}</div><div class="kpi-sub">1 ~ 49%</div></div>
-    <div class="kpi-box k-avg"><div class="kpi-lbl">전체 평균 진도</div><div class="kpi-val">${avg}%</div><div class="kpi-sub">Overall Progress</div></div>`;
+  document.getElementById('kpiRow').innerHTML=`<div class="kpi-box k-total"><div class="kpi-lbl">전체 항목</div><div class="kpi-val">${total}</div><div class="kpi-sub">AITF Tasks</div></div><div class="kpi-box k-done"><div class="kpi-lbl">완료</div><div class="kpi-val">${done}</div><div class="kpi-sub">100% 완료</div></div><div class="kpi-box k-prog"><div class="kpi-lbl">진행중</div><div class="kpi-val">${prog}</div><div class="kpi-sub">50 ~ 99%</div></div><div class="kpi-box k-part"><div class="kpi-lbl">일부 시작</div><div class="kpi-val">${part}</div><div class="kpi-sub">1 ~ 49%</div></div><div class="kpi-box k-avg"><div class="kpi-lbl">전체 평균 진도</div><div class="kpi-val">${avg}%</div><div class="kpi-sub">Overall Progress</div></div>`;
 }
 function renderTabs(){
   const cnt={};window.items.forEach(i=>{cnt[i.phase]=(cnt[i.phase]||0)+1;});
   document.getElementById('tc-all').textContent=window.items.length;
-  ['P0','P1','P2','P3','P4','P5','P6','P7','P8'].forEach(p=>{
-    const el=document.getElementById('tc-'+p.toLowerCase());
-    if(el)el.textContent=cnt['QG-'+p]||0;
-  });
+  ['P0','P1','P2','P3','P4','P5','P6','P7','P8'].forEach(p=>{const el=document.getElementById('tc-'+p.toLowerCase());if(el)el.textContent=cnt['QG-'+p]||0;});
 }
 function renderDonut(){
   const done=window.items.filter(i=>i.status>=1).length,prog=window.items.filter(i=>i.status>=0.5&&i.status<1).length,part=window.items.filter(i=>i.status>0&&i.status<0.5).length,none=window.items.filter(i=>i.status<=0).length,total=window.items.length;
@@ -1268,7 +1037,7 @@ function renderPLCDist(){
   const phases={};window.items.forEach(i=>{phases[i.phase]=(phases[i.phase]||0)+1;});const max=Math.max(...Object.values(phases));
   document.getElementById('plcDist').innerHTML=Object.entries(phases).sort((a,b)=>a[0].localeCompare(b[0])).map(([ph,cnt])=>{const col=PHASE_COL[ph]||'#0057B8';return`<div class="plc-row"><span class="plc-lbl" style="color:${col}">${ph}</span><div class="plc-track"><div class="plc-fill" style="width:${cnt/max*100}%;background:${col}"></div></div><span class="plc-cnt">${cnt}</span></div>`;}).join('');
 }
-window.renderAll=function(){renderKPI();renderTabs();renderCards();renderDonut();renderCatBars();renderPLCDist();document.getElementById('lastUpdate').textContent=new Date().toISOString().split('T')[0];};
+window.renderAll = function(){renderKPI();renderTabs();renderCards();renderDonut();renderCatBars();renderPLCDist();document.getElementById('lastUpdate').textContent=new Date().toISOString().split('T')[0];};
 
 function filterPhase(ph,el){activePhase=ph;document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));if(el)el.classList.add('active');const map={'all':'tab-all','QG-P0':'tab-p0','QG-P1':'tab-p1','QG-P2':'tab-p2','QG-P3':'tab-p3','QG-P4':'tab-p4','QG-P5':'tab-p5','QG-P6':'tab-p6','QG-P7':'tab-p7','QG-P8':'tab-p8'};document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));document.querySelector('.'+map[ph])?.classList.add('active');renderCards();}
 function filterPhaseTab(ph,el){activePhase=ph;document.querySelectorAll('.plc-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.nav-item[data-phase]').forEach(e=>e.classList.remove('active'));document.querySelector(`.nav-item[data-phase="${ph}"]`)?.classList.add('active');renderCards();}
@@ -1278,58 +1047,34 @@ function openAddModal(){document.getElementById('modalTitle').textContent='새 �
 function openEditModal(id){const it=window.items.find(i=>i.id===id);if(!it)return;document.getElementById('modalTitle').textContent='항목 편집 — '+it.title;document.getElementById('editId').value=id;document.getElementById('editName').value=it.title;document.getElementById('editPhase').value=it.phase;document.getElementById('editCategory').value=it.category;document.getElementById('editStatus').value=it.status;document.getElementById('editStatusVal').textContent=Math.round(it.status*100)+'%';document.getElementById('editDesc').value=it.desc||'';document.getElementById('editResult').value=it.result||'';document.getElementById('editTasks').value=(it.tasks||[]).join(', ');document.getElementById('editTools').value=(it.tools||[]).join(', ');document.getElementById('editPriority').value=it.priority||'';document.getElementById('editOwner').value=it.owner||'';document.getElementById('editLink').value=it.link||'';document.getElementById('deleteBtn').style.display='block';document.getElementById('editModal').classList.add('open');}
 function closeModal(){document.getElementById('editModal').classList.remove('open');}
 
-// saveItem — Firebase 연동 버전
 async function saveItem(){
   const id=document.getElementById('editId').value,title=document.getElementById('editName').value.trim();
   if(!title){alert('제목을 입력하세요.');return;}
-  const data={title,phase:document.getElementById('editPhase').value,category:document.getElementById('editCategory').value,
-    status:parseFloat(document.getElementById('editStatus').value),
-    desc:document.getElementById('editDesc').value.trim(),result:document.getElementById('editResult').value.trim(),
-    tasks:document.getElementById('editTasks').value.split(',').map(s=>s.trim()).filter(Boolean),
-    tools:document.getElementById('editTools').value.split(',').map(s=>s.trim()).filter(Boolean),
-    priority:document.getElementById('editPriority').value||null,owner:document.getElementById('editOwner').value.trim()||null,
-    link:document.getElementById('editLink').value.trim()||null};
-  if(id){data.id=parseInt(id);}else{data.id=Date.now();}
-  // Firebase path
-  if(!window.isDemoMode && window._saveItemToFirebase){
-    const ok = await window._saveItemToFirebase(data);
-    if(!ok) return;
-    // onSnapshot will update items array automatically
+  const data={title,phase:document.getElementById('editPhase').value,category:document.getElementById('editCategory').value,status:parseFloat(document.getElementById('editStatus').value),desc:document.getElementById('editDesc').value.trim(),result:document.getElementById('editResult').value.trim(),tasks:document.getElementById('editTasks').value.split(',').map(s=>s.trim()).filter(Boolean),tools:document.getElementById('editTools').value.split(',').map(s=>s.trim()).filter(Boolean),priority:document.getElementById('editPriority').value||null,owner:document.getElementById('editOwner').value.trim()||null,link:document.getElementById('editLink').value.trim()||null};
+  data.id = id ? parseInt(id) : Date.now();
+  if (!window.isDemoMode && window._saveItemToFirebase) {
+    const ok = await window._saveItemToFirebase(data); if(!ok) return;
   } else {
-    if(id){const idx=window.items.findIndex(i=>i.id===parseInt(id));if(idx>=0)Object.assign(window.items[idx],data);}
-    else{window.items.push(data);}
-    window.saveData();
-    window.renderAll();
+    if(id){const idx=window.items.findIndex(i=>i.id===parseInt(id));if(idx>=0)Object.assign(window.items[idx],data);}else{window.items.push(data);}
+    window.saveData(); window.renderAll();
   }
-  closeModal();
-  window.showToast('✓ 저장 완료');
+  closeModal(); window.showToast('✓ 저장 완료');
 }
 
-// deleteItem — Firebase 연동 버전
 async function deleteItem(){
   const id=parseInt(document.getElementById('editId').value);
-  if(!id)return;
-  if(!confirm('이 항목을 삭제하시겠습니까?'))return;
+  if(!id||!confirm('이 항목을 삭제하시겠습니까?'))return;
   if(!window.isDemoMode && window._deleteItemFromFirebase){
-    const ok = await window._deleteItemFromFirebase(id);
-    if(!ok) return;
-    // onSnapshot handles array update
-  } else {
-    window.items=window.items.filter(i=>i.id!==id);
-    window.saveData();
-    window.renderAll();
-  }
-  closeModal();
-  window.showToast('✓ 삭제 완료');
+    const ok=await window._deleteItemFromFirebase(id); if(!ok) return;
+  } else { window.items=window.items.filter(i=>i.id!==id); window.saveData(); window.renderAll(); }
+  closeModal(); window.showToast('✓ 삭제 완료');
 }
 
 function testLink(){const url=document.getElementById('editLink').value.trim();if(!url){alert('링크 URL을 입력하세요.');return;}if(!url.startsWith('http')){alert('URL은 https:// 로 시작해야 합니다.');return;}window.open(url,'_blank');}
 document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
-function updateClock(){const now=new Date();const yyyy=now.getFullYear();const mm=String(now.getMonth()+1).padStart(2,'0');const dd=String(now.getDate()).padStart(2,'0');const time=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});document.getElementById('clock').textContent=yyyy+'.'+mm+'.'+dd+'. '+time;}
-setInterval(updateClock,1000);updateClock();
-// Initial load for demo mode (Firebase overrides via onSnapshot)
-window.loadData();
-window.renderAll();
+function updateClock(){const now=new Date();document.getElementById('clock').textContent=now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0')+'. '+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(updateClock,1000); updateClock();
+window.loadData(); window.renderAll();
 </script>
 </body>
 </html>
