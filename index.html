@@ -731,14 +731,31 @@ function loadConfig() {
   try { const v = localStorage.getItem(LS_CONFIG); return v ? JSON.parse(v) : null; } catch(e) { return null; }
 }
 
-// ── 초기화 ─────────────────────────────────
+// ── Firebase 설정값 내장 (팀원 설정 불필요) ─
+const EMBEDDED_CONFIG = {
+  apiKey:            "AIzaSyCAmXqwYPH0V8a77AmByMtcTG4okq-sNA8",
+  authDomain:        "yko-aift-dashboard.firebaseapp.com",
+  projectId:         "yko-aift-dashboard",
+  storageBucket:     "yko-aift-dashboard.firebasestorage.app",
+  messagingSenderId: "325581434823",
+  appId:             "1:325581434823:web:a4b1c883da75e0538bf3e2",
+  measurementId:     "G-Y1Q3F0C62E"
+};
+const EMBEDDED_EMAILS = [
+  "kwanghoon.cha@yokogawa.com",
+  "eunhwa.kim@yokogawa.com",
+  "sungjin.lim@yokogawa.com",
+  "Junseok.Han@yokogawa.com",
+  "Hoseop.Ko@yokogawa.com",
+  "chaeeun.ma@yokogawa.com"
+];
+
+// ── 초기화 (설정창 생략 — 바로 로그인 화면) ─
 (async function init() {
-  const cfg = loadConfig();
-  if (localStorage.getItem(LS_DEMO) === '1') {
-    isDemoMode = true; startDemoMode(); return;
-  }
-  if (!cfg) { showConfigModal(); return; }
-  await connectFirebase(cfg);
+  localStorage.setItem(LS_CONFIG, JSON.stringify(EMBEDDED_CONFIG));
+  localStorage.setItem(LS_EMAILS, JSON.stringify(EMBEDDED_EMAILS));
+  localStorage.removeItem(LS_DEMO);
+  await connectFirebase(EMBEDDED_CONFIG);
 })();
 
 // ── Firebase 설정 저장 (UI 입력값 사용) ────
@@ -1078,3 +1095,4 @@ window.loadData(); window.renderAll();
 </script>
 </body>
 </html>
+
